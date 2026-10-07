@@ -27,13 +27,23 @@
                     "priority": 0
                 },
                 {
-                    "name": "Mirar",
+                    "name": "MirarGamepad",
                     "type": "Value",
                     "id": "b1f20c6a-1eef-43d2-9754-157c30751508",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "MirarMouse",
+                    "type": "Button",
+                    "id": "e64e537d-923c-4bcc-b101-f25c938ea1ab",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
                     "priority": 0
                 }
             ],
@@ -166,7 +176,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mirar",
+                    "action": "MirarGamepad",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -177,7 +187,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mirar",
+                    "action": "MirarMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -14,61 +14,64 @@ public class CamaraOrbital : MonoBehaviour
 
     float sensibilidadMouse;
     float sensibilidadControl;
-    float sensibilidad;
-
     float distanciaCamara;
-    float alturaCamara;
-
     float velocidadRegreso;
+    float contador;
 
     PlayerInput playerInput;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Application.targetFrameRate = 10;
         Cursor.lockState = CursorLockMode.Locked;
 
         playerInput = jugador.GetComponent<PlayerInput>();
         componenteTransformJugador = jugador.GetComponent<Transform>();
         componenteTransformCamara = puntoCamara.GetComponent<Transform>();
 
-        angulo = new Vector2(90, 0);
-
-        sensibilidad = 0;
-        sensibilidadMouse = 0.1f;
+        angulo = new Vector2(0, 0);
+        sensibilidadMouse = 0.05f;
         sensibilidadControl = 100;
-
         distanciaCamara = 6;
-        alturaCamara = 3.5f;
-
         velocidadRegreso = 5;
+        contador = 0;
     }
 
     void Update()
     {
-        mirar = playerInput.actions["Mirar"].ReadValue<Vector2>();
+        mirar = (playerInput.actions["MirarMouse"].ReadValue<Vector2>() * sensibilidadMouse) + (sensibilidadControl * Time.deltaTime * playerInput.actions["MirarGamepad"].ReadValue<Vector2>());
 
-        sensibilidad = mirar.x > 1.5f ? sensibilidadMouse : sensibilidadControl; 
+        if(mirar.sqrMagnitude < 0.1f)
+        {
+            contador += Time.deltaTime;
+            if (contador >= 2f)
+            {
+                angulo.x = Mathf.Lerp(angulo.x, 0, velocidadRegreso * Time.deltaTime);
+                angulo.y = Mathf.Lerp(angulo.y, 0, velocidadRegreso * Time.deltaTime);
+            } 
+        } else
+        {
+            contador = 0;
+        }
+        
+        if(mirar != Vector2.zero) contador = 0;
 
-        angulo.x += mirar.x * sensibilidad;
-        angulo.y += mirar.y * sensibilidad;
-        angulo.x = Mathf.Lerp(angulo.x, 90, velocidadRegreso * Time.deltaTime);
-        angulo.y = Mathf.Lerp(angulo.y, 0, velocidadRegreso * Time.deltaTime);
-
-        angulo.y = Math.Clamp(angulo.y, -60, 40);
+        angulo.x += mirar.x;
+        angulo.y += mirar.y;
+        angulo.y = Math.Clamp(angulo.y, -20, 40);
     }
 
     // Update is called once per frame
     void LateUpdate()
-    { 
-        Quaternion rotacionCamara = Quaternion.Euler( angulo.y, componenteTransformJugador.eulerAngles.y + angulo.x - 90, 0 );
-
-        Vector3 posicion = componenteTransformCamara.position - rotacionCamara * Vector3.forward * distanciaCamara;
-        posicion.y = alturaCamara;
+    {
+        Quaternion rotacionJugador = Quaternion.Euler(0, componenteTransformJugador.eulerAngles.y, 0 );
+        Vector3 posicion = componenteTransformCamara.position - rotacionJugador * Vector3.forward * distanciaCamara;
+        posicion.y = componenteTransformCamara.position.y + 2;
         transform.position = posicion;
-
         transform.LookAt(componenteTransformCamara);
     }
+
 }
 
 /*
