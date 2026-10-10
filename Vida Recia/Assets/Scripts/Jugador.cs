@@ -16,10 +16,19 @@ public class Jugador : MonoBehaviour
     float fuerzaFrenado;
     float velocidadGiro;
 
+    public AudioSource sonidoMoto;
+    public AudioClip relentiSonido;
+    public AudioClip aceleracionSonido;
+
+    bool estaAcelerando = false;
+
     void Start()
     {
+        this.transform.rotation = Quaternion.Euler(0,-90,0);
+
         playerInput = this.GetComponent<PlayerInput>();
         rb = this.GetComponent<Rigidbody>();
+        sonidoMoto = this.GetComponent<AudioSource>();
 
         giro = Vector2.zero;
         inclinacionMoto = 0;
@@ -29,13 +38,17 @@ public class Jugador : MonoBehaviour
         fuerzaAceleracion = 40;
         fuerzaFrenado = 14;
         velocidadGiro = 3;
+
+        sonidoMoto.clip = relentiSonido;
+        sonidoMoto.loop = true;
+        sonidoMoto.Play();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //datos para mostrar en pantalla
-        if(PasarDatos.vidaPizza == 0) Debug.Log("Perdiste");
+        if (PasarDatos.vidaPizza == 0) Debug.Log("Perdiste");
         //Debug.Log(velocidadActual * 2);
 
         aceleracion = playerInput.actions["Acelerar"].ReadValue<float>();
@@ -45,6 +58,14 @@ public class Jugador : MonoBehaviour
         if (aceleracion > 0)
         {
             velocidadActual += fuerzaAceleracion * Time.fixedDeltaTime;
+            if (!estaAcelerando)
+            {
+                estaAcelerando = true;
+                sonidoMoto.clip = aceleracionSonido;
+                sonidoMoto.loop = true;
+                sonidoMoto.Play();
+            }
+
         }
         else if (aceleracion < 0)
         {
@@ -53,6 +74,13 @@ public class Jugador : MonoBehaviour
         else
         {
             velocidadActual = Mathf.MoveTowards( velocidadActual,0,fuerzaFrenado * Time.fixedDeltaTime);
+            if (estaAcelerando)
+            {
+                estaAcelerando = false;
+                sonidoMoto.clip = relentiSonido;
+                sonidoMoto.loop = true;
+                sonidoMoto.Play();
+            }
         }
 
         float rotacion = giro.x * velocidadGiro;
