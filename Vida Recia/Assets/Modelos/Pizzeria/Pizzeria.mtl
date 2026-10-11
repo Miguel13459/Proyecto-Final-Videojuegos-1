@@ -1,0 +1,12 @@
+# Blender 5.2.2 LTS MTL File: 'Pizzeria.blend'
+# www.blender.org
+
+newmtl ce80f50d_5fd2_4ad7_bacb_602ec57e43e2
+Ns 0.999999
+Ka 1.000000 1.000000 1.000000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Users/migue/OneDrive/Escritorio/Semestre 9/videojuegos 1/ProyectoFinal/Pizzeria/corner+restaurant+building+3d+model_basecolor.jpg
