@@ -1360,7 +1360,6 @@ GameObject:
   - component: {fileID: 1917683284}
   - component: {fileID: 1917683283}
   - component: {fileID: 1917683286}
-  - component: {fileID: 1917683287}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1486,20 +1485,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &1917683287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917683282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03539a5fe322add4cb5958364f48ac16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CamaraOrbital
-  jugador: {fileID: 359265215}
-  puntoCamara: {fileID: 546789931}
 --- !u!1 &2020917107 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 771132a9d7366824c85e891726ba8f21, type: 3}

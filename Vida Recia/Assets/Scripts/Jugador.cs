@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,11 @@ public class Jugador : MonoBehaviour
     public GameObject modeloMoto;
     PlayerInput playerInput;
     Rigidbody rb;
+
+    public GameObject llantaDelantera;
+    public GameObject llantaTrasera;
+    float radioLlanta;
+    float gradosRotacion;
 
     float aceleracion;
     Vector2 giro;
@@ -42,6 +48,9 @@ public class Jugador : MonoBehaviour
         sonidoMoto.clip = relentiSonido;
         sonidoMoto.loop = true;
         sonidoMoto.Play();
+
+        radioLlanta = 0.75f;
+        gradosRotacion = 0;
     }
 
     // Update is called once per frame
@@ -100,6 +109,13 @@ public class Jugador : MonoBehaviour
             inclinacionMoto = Mathf.MoveTowards(inclinacionMoto, 0, 100 * Time.fixedDeltaTime);
         }
         modeloMoto.transform.localRotation = Quaternion.Euler(0, 0, inclinacionMoto);
+
+        float distanciaRecorrida = velocidadActual * Time.fixedDeltaTime;
+        float grados = (distanciaRecorrida / radioLlanta) * Mathf.Rad2Deg;
+        gradosRotacion += grados;
+
+        llantaDelantera.transform.localRotation = Quaternion.Euler(0, 0, gradosRotacion);
+        llantaTrasera.transform.localRotation = Quaternion.Euler(0, 0, gradosRotacion);
     }
 
     private void OnCollisionEnter(Collision collision)

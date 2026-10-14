@@ -41,6 +41,7 @@ public class CamaraOrbital : MonoBehaviour
     void Update()
     {
         mirar = (playerInput.actions["MirarMouse"].ReadValue<Vector2>() * sensibilidadMouse) + (sensibilidadControl * Time.deltaTime * playerInput.actions["MirarGamepad"].ReadValue<Vector2>());
+        Debug.Log("Mirar: " + mirar);
 
         if(mirar.sqrMagnitude < 0.1f)
         {
@@ -59,14 +60,15 @@ public class CamaraOrbital : MonoBehaviour
 
         angulo.x += mirar.x;
         angulo.y += mirar.y;
+        Debug.Log("Angulo: " + angulo);
         angulo.y = Math.Clamp(angulo.y, -20, 40);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        Quaternion rotacionJugador = Quaternion.Euler(0, componenteTransformJugador.eulerAngles.y, 0 );
-        Vector3 posicion = componenteTransformCamara.position - rotacionJugador * Vector3.forward * distanciaCamara;
+        Quaternion rotacionCamara = Quaternion.Euler(angulo.y, componenteTransformJugador.eulerAngles.y + angulo.x, 0 );
+        Vector3 posicion = componenteTransformCamara.position - rotacionCamara * Vector3.forward * distanciaCamara;
         posicion.y = componenteTransformCamara.position.y + 2;
         transform.position = posicion;
         transform.LookAt(componenteTransformCamara);
@@ -74,28 +76,3 @@ public class CamaraOrbital : MonoBehaviour
 
 }
 
-/*
-        if (Mathf.Abs(mirar.x) > 0.01f)
-        {
-            rotacionHorizontal += mirar.x * sensibilidadMouse;
-        }
-        else
-        {
-            rotacionHorizontal = Mathf.Lerp(rotacionHorizontal, 0, velocidadRegreso * Time.deltaTime);
-        }
-
-        if (Mathf.Abs(mirar.y) > 0.01f) rotacionVertical += mirar.y * sensibilidadMouse;
-
-        rotacionVertical = Mathf.Clamp(rotacionVertical, -10, 80);
-
-        Quaternion rotacionJugador = Quaternion.Euler(0, componenteTransformJugador.eulerAngles.y, 0);
-        Quaternion rotacionCamara = Quaternion.Euler(rotacionHorizontal, rotacionVertical, 0);
-
-        Vector3 posicion = componenteTransformJugador.position - rotacionJugador * Vector3.forward * distanciaCamara;
-
-        posicion.y = alturaCamara;
-
-        transform.SetPositionAndRotation(posicion + orbita, rotacionCamara);
-        transform.LookAt(componenteTransformCamara);
-        Debug.Log("Mirar despues de todo" + mirar);
- */
