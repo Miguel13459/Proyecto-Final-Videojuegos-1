@@ -17,7 +17,7 @@ public class Jugador : MonoBehaviour
     Vector2 giro;
     float inclinacionMoto;
     public float velocidadActual;
-    float velocidadMaxima;
+    public float velocidadMaxima;
     float fuerzaAceleracion;
     float fuerzaFrenado;
     float velocidadGiro;

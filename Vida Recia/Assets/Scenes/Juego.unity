@@ -3403,6 +3403,7 @@ MonoBehaviour:
   llantaDelantera: {fileID: 258732350}
   llantaTrasera: {fileID: 1764338105}
   velocidadActual: 0
+  velocidadMaxima: 0
   sonidoMoto: {fileID: 0}
   relentiSonido: {fileID: 8300000, guid: 55d6a9a21e1f9a64fb8fb270733123b3, type: 3}
   aceleracionSonido: {fileID: 8300000, guid: d72ead45ac6ecd649a8a73832a6bc72a, type: 3}
@@ -8633,6 +8634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65bcc3db0b6cb14daff28f92fc92d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManejadorUI
+  barraVelocimetro: {fileID: 0}
   textoVelocimetro: {fileID: 585746557}
 --- !u!4 &829746860 stripped
 Transform:
@@ -16314,7 +16316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 4a21f815fa4fc83409ad7c36f5c4875a, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
