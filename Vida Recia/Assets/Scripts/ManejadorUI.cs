@@ -1,32 +1,46 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class ManejadorUI : MonoBehaviour
 {
-    public UnityEngine.UI.Image barraVelocimetro;
-    Material materialVelocimetro;
     GameObject jugador;
     Jugador scriptJugador;
+
+    public GameObject velocimetroBarra;
+    public GameObject barraVida;
+    Image rellenoBarraVelocimetro;
+    Image rellenoBarraVida;
     public TMP_Text textoVelocimetro;
+
+    int velocidad;
+    int vidaActual;
+    int numVidas;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         jugador = GameObject.FindGameObjectWithTag("Player");
         scriptJugador = jugador.GetComponent<Jugador>();
-
-        materialVelocimetro = barraVelocimetro.material;
+        numVidas = scriptJugador.vidaPizza;
+        vidaActual = scriptJugador.vidaPizza;
+        rellenoBarraVelocimetro = velocimetroBarra.GetComponent<Image>();
+        rellenoBarraVelocimetro.fillAmount = 0;
+        rellenoBarraVida = barraVida.GetComponent<Image>();
+        rellenoBarraVida.fillAmount = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*float velocidad = Mathf.Abs(scriptJugador.velocidadActual) * 3f;
+        vidaActual = scriptJugador.vidaPizza;
+        //Debug.Log(vidaActual);
+        rellenoBarraVida.fillAmount = vidaActual / numVidas;
+        //Debug.Log(vidaActual / numVidas);
 
-        float progreso = Mathf.Clamp01(velocidad / scriptJugador.velocidadMaxima);
-
-        materialVelocimetro.SetFloat("_Progress", progreso);*/
-
-        textoVelocimetro.text = Mathf.FloorToInt(scriptJugador.velocidadActual*3).ToString();
+        velocidad = Mathf.FloorToInt(scriptJugador.velocidadActual * 5);
+        velocidad = velocidad < 0 ? 0 : velocidad;
+        textoVelocimetro.text = velocidad.ToString();
+        rellenoBarraVelocimetro.fillAmount = (scriptJugador.velocidadActual * 5) * 0.01f;
     }
 }

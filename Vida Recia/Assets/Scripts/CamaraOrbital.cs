@@ -41,7 +41,7 @@ public class CamaraOrbital : MonoBehaviour
     void Update()
     {
         mirar = (playerInput.actions["MirarMouse"].ReadValue<Vector2>() * sensibilidadMouse) + (sensibilidadControl * Time.deltaTime * playerInput.actions["MirarGamepad"].ReadValue<Vector2>());
-        Debug.Log("Mirar: " + mirar);
+        //Debug.Log("Mirar: " + mirar);
 
         if(mirar.sqrMagnitude < 0.1f)
         {
@@ -60,7 +60,7 @@ public class CamaraOrbital : MonoBehaviour
 
         angulo.x += mirar.x;
         angulo.y += mirar.y;
-        Debug.Log("Angulo: " + angulo);
+        //Debug.Log("Angulo: " + angulo);
         angulo.y = Math.Clamp(angulo.y, -20, 40);
     }
 

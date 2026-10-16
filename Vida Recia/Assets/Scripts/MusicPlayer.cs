@@ -18,6 +18,7 @@ public class MusicPlayer : MonoBehaviour
     public TextMeshProUGUI songTitleText;
     public Slider volumeSlider;
     public Image discImage;         // El componente Image de la UI que contiene el disco
+    public Slider SliderTiempoCancion;
 
     [Header("Configuración de Rotación")]
     public float rotationSpeed = 100f; // Velocidad con la que gira el disco
@@ -27,6 +28,8 @@ public class MusicPlayer : MonoBehaviour
     private int currentSongIndex = 0;
     private bool isPlayerPausedManual = false;
 
+    float duracionTotal;
+    float tiempoActual;
     void Start()
     {
         // Configurar el slider de volumen
@@ -41,10 +44,20 @@ public class MusicPlayer : MonoBehaviour
         {
             LoadSong(currentSongIndex);
         }
+
+        duracionTotal = audioSource.clip.length;
+        
     }
 
     void Update()
     {
+        tiempoActual = audioSource.time;
+        if (SliderTiempoCancion != null && audioSource != null)
+        {
+            SliderTiempoCancion.value = tiempoActual / duracionTotal;
+            //SliderTiempoCancion.onValueChanged.AddListener(SetVolume);
+        }
+
         if (audioSource == null || playlist.Length == 0) return;
 
         // 1. ROTACIÓN DEL DISCO: Gira solo si la música está sonando

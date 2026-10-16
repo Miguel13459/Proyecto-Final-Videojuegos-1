@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,11 @@ public class Jugador : MonoBehaviour
 
     bool estaAcelerando = false;
 
+    public int vidaPizza;
+    float tiempoInmunidad;
+    bool esInmune;
+
+
     void Start()
     {
         this.transform.rotation = Quaternion.Euler(0,-90,0);
@@ -40,9 +46,9 @@ public class Jugador : MonoBehaviour
         inclinacionMoto = 0;
         aceleracion = 0;
         velocidadActual = 0;
-        velocidadMaxima = 30;
+        velocidadMaxima = 20;
         fuerzaAceleracion = 40;
-        fuerzaFrenado = 14;
+        fuerzaFrenado = 18;
         velocidadGiro = 3;
 
         sonidoMoto.clip = relentiSonido;
@@ -51,15 +57,15 @@ public class Jugador : MonoBehaviour
 
         radioLlanta = 0.75f;
         gradosRotacion = 0;
+
+        vidaPizza = 3;
+        tiempoInmunidad = 2f;
+        esInmune = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //datos para mostrar en pantalla
-        if (PasarDatos.vidaPizza == 0) Debug.Log("Perdiste");
-        //Debug.Log(velocidadActual * 2);
-
         aceleracion = playerInput.actions["Acelerar"].ReadValue<float>();
         giro = playerInput.actions["Girar"].ReadValue<Vector2>();
 
@@ -110,7 +116,7 @@ public class Jugador : MonoBehaviour
         }
         modeloMoto.transform.localRotation = Quaternion.Euler(0, 0, inclinacionMoto);
 
-        float distanciaRecorrida = velocidadActual * Time.fixedDeltaTime;
+        float distanciaRecorrida = (velocidadActual/3) * Time.fixedDeltaTime;
         float grados = (distanciaRecorrida / radioLlanta) * Mathf.Rad2Deg;
         gradosRotacion += grados;
 
@@ -120,16 +126,41 @@ public class Jugador : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision == null) return;
-        if(collision.gameObject.CompareTag("Autos"))
+        if (esInmune) return;
+        //esInmune = true;
+        if (collision == null) return;
+        if(collision.gameObject.CompareTag("Obstaculo"))
         {
-            PasarDatos.vidaPizza--;
-            Debug.Log(PasarDatos.vidaPizza);
+            vidaPizza--;
+            if (vidaPizza <= 0)
+            {
+                PerderPedido();
+            }
+            else
+            {
+                StartCoroutine(ActivarInmunidad());
+            }
         }
-        if (collision.gameObject.CompareTag("Bache"))
+        
+    }
+
+    private void PerderPedido()
+    {
+        Debug.Log("Perdiste el pedido");
+    }
+
+    IEnumerator ActivarInmunidad()
+    {
+        //esInmune = true;
+        float tiempoPasado = 0;
+        while(tiempoPasado < tiempoInmunidad)
         {
-            PasarDatos.vidaPizza--;
-            Debug.Log(PasarDatos.vidaPizza);
+            modeloMoto.SetActive(!modeloMoto.activeSelf);
+            yield return new WaitForSeconds(0.1f);
+            tiempoPasado += 0.1f;
         }
+
+        this.gameObject.SetActive(true);
+        esInmune = false;
     }
 }
