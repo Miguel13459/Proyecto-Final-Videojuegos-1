@@ -14,6 +14,8 @@ public class Jugador : MonoBehaviour
     float radioLlanta;
     float gradosRotacion;
 
+    public Animator animatorDiamante;
+
     float aceleracion;
     Vector2 giro;
     float inclinacionMoto;
@@ -79,12 +81,19 @@ public class Jugador : MonoBehaviour
                 sonidoMoto.clip = aceleracionSonido;
                 sonidoMoto.loop = true;
                 sonidoMoto.Play();
+                animatorDiamante.SetInteger("Estado", 1);
             }
 
         }
         else if (aceleracion < 0)
         {
             velocidadActual -= fuerzaFrenado * Time.fixedDeltaTime;
+            animatorDiamante.SetInteger("Estado", 2);
+            AnimatorStateInfo stateInfo = animatorDiamante.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.IsName("Estado"))
+            {
+                animatorDiamante.SetInteger("Estado", 3);
+            }
         }
         else
         {
@@ -95,6 +104,7 @@ public class Jugador : MonoBehaviour
                 sonidoMoto.clip = relentiSonido;
                 sonidoMoto.loop = true;
                 sonidoMoto.Play();
+                animatorDiamante.SetInteger("Estado", 0);
             }
         }
 
@@ -107,8 +117,17 @@ public class Jugador : MonoBehaviour
         if(giro.x != 0)
         {
             inclinacionMoto += giro.x * -100 * Time.fixedDeltaTime;
-            if(inclinacionMoto > 45) inclinacionMoto = 45;
-            if(inclinacionMoto < -45) inclinacionMoto = -45;
+            if (inclinacionMoto > 45)
+            {
+                inclinacionMoto = 45;
+                animatorDiamante.SetInteger("Estado", 4);
+            }
+            if (inclinacionMoto < -45)
+            {
+                inclinacionMoto = -45;
+                animatorDiamante.SetInteger("Estado", 5);
+            }
+
         }
         else
         {
