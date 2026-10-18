@@ -672,7 +672,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3434,7 +3434,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313357444}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -3454,7 +3454,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Jugador
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &313357447
@@ -3475,10 +3475,23 @@ MonoBehaviour:
   animatorDiamante: {fileID: 2070616417}
   velocidadActual: 0
   velocidadMaxima: 0
+  aceleracionMoto: 0
+  fuerzaFrenado: 0
+  desaceleracionNatural: 0
+  velocidadMaximaReversa: 3
+  aceleracionReversa: 4
+  velocidadParaReversa: 0.5
+  giroMaximoBajaVelocidad: 80
+  giroMaximoAltaVelocidad: 18
+  velocidadParaGiroMaximo: 70
+  inclinacionMaxima: 25
+  velocidadInclinacion: 90
+  radioLlanta: 0
   sonidoMoto: {fileID: 0}
   relentiSonido: {fileID: 8300000, guid: 55d6a9a21e1f9a64fb8fb270733123b3, type: 3}
   aceleracionSonido: {fileID: 8300000, guid: d72ead45ac6ecd649a8a73832a6bc72a, type: 3}
   vidaPizza: 3
+  tiempoInmunidad: 0
 --- !u!54 &313357448
 Rigidbody:
   m_ObjectHideFlags: 0
