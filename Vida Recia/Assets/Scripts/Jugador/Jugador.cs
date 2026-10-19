@@ -12,6 +12,9 @@ public class Jugador : MonoBehaviour
     public GameObject llantaDelantera;
     public GameObject llantaTrasera;
 
+    [Header("Gravedad")]
+    public float gravedad;
+
     [Header("Inputs")]
     public float aceleracion;
     public Vector2 giro;
@@ -43,7 +46,6 @@ public class Jugador : MonoBehaviour
     [Header("Animaciones")]
     public Animator animatorDiamante;
 
-
     [Header("Pizza")]
     public bool estaAcelerando = false;
     public int vidaPizza;
@@ -59,13 +61,16 @@ public class Jugador : MonoBehaviour
         fsm.Initialize(new IdleState(this, fsm));
 
         this.transform.rotation = Quaternion.Euler(0, -90, 0);
+        this.transform.position = Vector3.up * 10;
 
         playerInput = this.GetComponent<PlayerInput>();
         rb = this.GetComponent<Rigidbody>();
         sonidoMoto = this.GetComponent<AudioSource>();
 
         giro = Vector2.zero;
-        
+
+        gravedad = 20;
+
         velocidadMaxima = 20;
         fuerzaAceleracion = 40;
         fuerzaFrenado = 18;
