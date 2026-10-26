@@ -61,7 +61,9 @@ public class CamaraOrbital : MonoBehaviour
         angulo.x += mirar.x;
         angulo.y += mirar.y;
         //Debug.Log("Angulo: " + angulo);
-        angulo.y = Math.Clamp(angulo.y, -20, 40);
+        //angulo.y = Math.Clamp(angulo.y, -40, 60);
+        if (angulo.y > 60f) angulo.y = 60f;
+        if (angulo.y < -40f) angulo.y = -40f;
     }
 
     // Update is called once per frame

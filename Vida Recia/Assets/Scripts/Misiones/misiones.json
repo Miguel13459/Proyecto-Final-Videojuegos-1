@@ -1,0 +1,20 @@
+{
+    "misiones": [
+        {
+            "misionId": 1,
+            "nombre": "Michel",
+            "lugar": "Hospital General",
+            "coordenadas": [
+                30.2,2.0
+            ]
+        },
+        {
+            "misionId": 2,
+            "nombre": "Señorita Melendez",
+            "lugar": "Residencia 102",
+            "coordenadas": [
+                182.3,149.2
+            ]
+        }
+    ]
+}

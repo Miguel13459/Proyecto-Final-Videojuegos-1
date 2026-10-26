@@ -1,0 +1,33 @@
+{
+    "jefeJackson": [
+        {
+            "introduccion" : "Niña, tenemos entrega.",
+            "lugar": "Dirigete a esta dirección: ",
+            "final": "Apresurate, no tengo todo el día para hablar contigo."
+        },
+        {
+            "introduccion" : "Nuevo pedido en la lista.",
+            "lugar": "Dirigete a esta dirección: ",
+            "final": "Te lo pido con toda mi amabilidad y si no te das prisa amablemente te quitaré tu salario"
+        },
+        {
+            "introduccion" : "No veo nada, ¡NO ESTÁS HACIENDO NADA!",
+            "lugar": "Dirigete a esta dirección: ",
+            "final": "Me va a dar algo, son demasiados pedidos."
+        }
+    ],
+    "clientes": [
+        {
+            "dialogo" : "Muchas gracias señorita, te entrego el dinero de la pizza, que tenga buen día."
+        },
+        {
+            "dialogo" : "Etto... Gracias por traer la pizza Diamante-kun >///<"
+        },
+        {
+            "dialogo" : "..."
+        },
+        {
+            "dialogo" : "Gracias señorita, tenga su propina."
+        }
+    ]
+}
