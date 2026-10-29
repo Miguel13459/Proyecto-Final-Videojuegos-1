@@ -17,6 +17,11 @@ public class ManejadorUI : MonoBehaviour
     int velocidad;
     int vidaActual;
     int numVidas;
+
+
+    public TMP_Text personaje;
+    public TMP_Text dialogo;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,5 +47,17 @@ public class ManejadorUI : MonoBehaviour
         velocidad = velocidad < 0 ? 0 : velocidad;
         textoVelocimetro.text = velocidad.ToString();
         rellenoBarraVelocimetro.fillAmount = (scriptJugador.velocidadActual * 5) * 0.01f;
+    }
+
+    public void MandarInfoDialogoJackson(DialogueData dialogoJackson, MissionData missionData)
+    {
+        personaje.text = "Jefe el loco Jackson";
+        dialogo.text = dialogoJackson.introduccion + " " + dialogoJackson.lugar + " " + missionData.lugar + " " + dialogoJackson.final;
+    }
+
+    public void MandarInfoDialogosClientes(DialogoClientes dialogoClientes, MissionData missionData)
+    {
+        personaje.text = missionData.nombre;
+        dialogo.text = dialogoClientes.dialogo;
     }
 }

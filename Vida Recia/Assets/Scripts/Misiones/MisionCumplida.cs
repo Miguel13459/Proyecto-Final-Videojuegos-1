@@ -1,29 +1,28 @@
 using UnityEngine;
 
-public class MisionCumplida : MonoBehaviour, IState
+public class MisionCumplida : IState
 {
-    private readonly QuestManager mision;
+    private readonly ManejadorMisiones mision;
     private readonly StateMachine fsm;
-    private readonly GameObject objeto;
-    public MisionCumplida(QuestManager mision, StateMachine fsm, GameObject objeto)
+    public MisionCumplida(ManejadorMisiones mision, StateMachine fsm)
     {
         this.mision = mision;
         this.fsm = fsm;
-        this.objeto = objeto;
     }
 
     public void Enter()
     {
-        Destroy(objeto);
+        mision.EsconderCliente();
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        fsm.ChangeState(new EsperandoPedidoState(mision, fsm));
     }
 
     public void Exit()
     {
-        fsm.ChangeState(new EsperandoPedidoState(mision, fsm));
+        Debug.Log("Saliendo estado cumplir mision");
+        
     }
 }

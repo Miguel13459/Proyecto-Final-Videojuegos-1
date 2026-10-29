@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings;
 
 public class Jugador : MonoBehaviour
 {
@@ -16,7 +13,7 @@ public class Jugador : MonoBehaviour
     public Rigidbody rb;
     public GameObject llantaDelantera;
     public GameObject llantaTrasera;
-    public QuestManager misiones;
+    public ManejadorMisiones misiones;
     
 
     [Header("Gravedad")]

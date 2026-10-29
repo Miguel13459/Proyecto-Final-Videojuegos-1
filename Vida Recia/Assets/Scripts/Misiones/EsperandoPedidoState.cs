@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class EsperandoPedidoState : MonoBehaviour, IState
+public class EsperandoPedidoState : IState
 {
-    private readonly QuestManager mision;
+    private readonly ManejadorMisiones mision;
     private readonly StateMachine fsm;
-    public EsperandoPedidoState(QuestManager mision, StateMachine fsm)
+    //GameObject jackson;
+    public EsperandoPedidoState(ManejadorMisiones mision, StateMachine fsm)
     {
         this.mision = mision;
         this.fsm = fsm;
@@ -12,13 +13,14 @@ public class EsperandoPedidoState : MonoBehaviour, IState
 
     public void Enter()
     {
-        Instantiate(mision.objetoRecogerMision, new Vector3(-2.5f, 0, 3.5f), Quaternion.identity);
+        Debug.Log("Entrando a EsperandoPedidoState");
+        mision.AparecerAJackson();
         Jugador.OnPlayerCollided += HandlePlayerCollision;
     }
 
     public void Execute()
     {
-        
+        Debug.Log("Ejecutando EsperandoPedidoState");
     }
 
     public void Exit()
@@ -30,6 +32,6 @@ public class EsperandoPedidoState : MonoBehaviour, IState
     {
         Debug.Log("jugador choco contra: " + objeto.name);
 
-        fsm.ChangeState(new MisionEnCursoState(mision, fsm, objeto));
+        fsm.ChangeState(new MisionEnCursoState(mision, fsm));
     }
 }
