@@ -10,6 +10,6 @@ public class MissionDestination : MonoBehaviour
         if (!other.CompareTag("Player"))
             return;
 
-        QuestManager.instance.LlegarAlDestino(misionId);
+        //QuestManager.instance.LlegarAlDestino(misionId);
     }
 }

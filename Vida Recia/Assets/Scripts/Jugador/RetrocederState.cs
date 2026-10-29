@@ -19,7 +19,7 @@ public class RetrocederState : IState
 
     public void Execute()
     {
-        Debug.Log("Estas en retroceder");
+        //Debug.Log("Estas en retroceder");
         jugador.animatorDiamante.SetInteger("Estado", 2);
         jugador.velocidadActual -= jugador.fuerzaFrenado * Time.deltaTime;
         if (jugador.velocidadActual < limiteVelocidadAtras) jugador.velocidadActual = -8f;
@@ -33,6 +33,6 @@ public class RetrocederState : IState
 
     public void Exit()
     {
-        Debug.Log("Saliendo de retroceder");
+        //Debug.Log("Saliendo de retroceder");
     }
 }

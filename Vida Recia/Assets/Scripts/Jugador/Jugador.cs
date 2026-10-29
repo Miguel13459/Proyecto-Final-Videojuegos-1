@@ -1,16 +1,23 @@
+using System;
 using System.Collections;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.PlayerSettings;
 
 public class Jugador : MonoBehaviour
 {
+    public static event Action<GameObject> OnPlayerCollided;
+
     [Header("Referencias")]
     public GameObject modeloMoto;
     PlayerInput playerInput;
     public Rigidbody rb;
     public GameObject llantaDelantera;
     public GameObject llantaTrasera;
+    public QuestManager misiones;
+    
 
     [Header("Gravedad")]
     public float gravedad;
@@ -124,7 +131,18 @@ public class Jugador : MonoBehaviour
                 StartCoroutine(ActivarInmunidad());
             }
         }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("RecogerMision"))
+        {
+            OnPlayerCollided?.Invoke(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("EntregarMision"))
+        {
+            OnPlayerCollided?.Invoke(other.gameObject);
+        }
     }
 
     private void PerderPedido()

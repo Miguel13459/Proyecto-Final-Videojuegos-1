@@ -23,7 +23,7 @@ public class AcelerarState : IState
 
     public void Execute()
     {
-        Debug.Log("Estas acelerando");
+        //Debug.Log("Estas acelerando");
         if (jugador.aceleracion < -0.1f)
         {
             fsm.ChangeState(new FrenarState(jugador, fsm));
@@ -59,6 +59,6 @@ public class AcelerarState : IState
 
     public void Exit()
     {
-        Debug.Log("Saliendo de Acelerar");
+        //Debug.Log("Saliendo de Acelerar");
     }
 }

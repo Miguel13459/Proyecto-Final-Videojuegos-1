@@ -22,7 +22,7 @@ public class IdleState : IState
 
     public void Execute()
     {
-        Debug.Log("Estas en idle");
+        //Debug.Log("Estas en idle");
         if (jugador.aceleracion > 0.2f)
         {
             fsm.ChangeState(new AcelerarState(jugador, fsm));
@@ -42,6 +42,6 @@ public class IdleState : IState
 
     public void Exit()
     {
-        Debug.Log("Saliendo de idle");
+        //Debug.Log("Saliendo de idle");
     }
 }

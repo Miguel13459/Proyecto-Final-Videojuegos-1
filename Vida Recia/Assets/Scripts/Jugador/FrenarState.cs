@@ -36,6 +36,6 @@ public class FrenarState : IState
 
     public void Exit()
     {
-        Debug.Log("Saliendo de frenar");
+        //Debug.Log("Saliendo de frenar");
     }
 }
