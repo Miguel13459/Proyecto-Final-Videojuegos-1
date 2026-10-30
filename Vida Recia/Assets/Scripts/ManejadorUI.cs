@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ public class ManejadorUI : MonoBehaviour
     int vidaActual;
     int numVidas;
 
-
+    public GameObject dialogos;
     public TMP_Text personaje;
     public TMP_Text dialogo;
 
@@ -33,6 +34,7 @@ public class ManejadorUI : MonoBehaviour
         rellenoBarraVelocimetro.fillAmount = 0;
         rellenoBarraVida = barraVida.GetComponent<Image>();
         rellenoBarraVida.fillAmount = 1;
+        dialogos.SetActive(false);
     }
 
     // Update is called once per frame
@@ -49,15 +51,22 @@ public class ManejadorUI : MonoBehaviour
         rellenoBarraVelocimetro.fillAmount = (scriptJugador.velocidadActual * 5) * 0.01f;
     }
 
-    public void MandarInfoDialogoJackson(DialogueData dialogoJackson, MissionData missionData)
+    public void MostrarDialogoJackson(DialogueData dialogoJackson, string lugar)
     {
+        dialogos.SetActive(true);
         personaje.text = "Jefe el loco Jackson";
-        dialogo.text = dialogoJackson.introduccion + " " + dialogoJackson.lugar + " " + missionData.lugar + " " + dialogoJackson.final;
+        dialogo.text = dialogoJackson.introduccion + " " + dialogoJackson.lugar + " " + lugar + " " + dialogoJackson.final;
     }
 
-    public void MandarInfoDialogosClientes(DialogoClientes dialogoClientes, MissionData missionData)
+    public void MostrarDialogoClientes(DialogoClientes dialogoClientes, string nombre)
     {
-        personaje.text = missionData.nombre;
+        dialogos.SetActive(true);
+        personaje.text = nombre;
         dialogo.text = dialogoClientes.dialogo;
+    }
+
+    internal void CerrarDialogos()
+    {
+        dialogos.SetActive(false);
     }
 }

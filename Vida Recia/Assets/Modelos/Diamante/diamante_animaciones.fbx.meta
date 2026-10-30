@@ -36,7 +36,7 @@ ModelImporter:
       takeName: rig|rig|HaciaAtras_bake
       internalID: -7269106002268545359
       firstFrame: 0
-      lastFrame: 84
+      lastFrame: 179
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -65,7 +65,7 @@ ModelImporter:
       takeName: rig|rig|HaciaAtrasPrincipio_bake
       internalID: -1658223202015801494
       firstFrame: 0
-      lastFrame: 48
+      lastFrame: 49
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -94,7 +94,7 @@ ModelImporter:
       takeName: rig|rig|Idle_bake
       internalID: -2665586440979274551
       firstFrame: 0
-      lastFrame: 47
+      lastFrame: 272
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -130,7 +130,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -159,7 +159,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -188,7 +188,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

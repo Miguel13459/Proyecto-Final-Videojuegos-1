@@ -45,16 +45,21 @@ public class ManejadorDialogos : MonoBehaviour
 
     }
     
-    public void HacerAparecerDialogosJackson(int dialogoIndex)
+    public void MandarInfoDialogoJackson(int dialogoIndex)
     {
         //Debug.Log(dialogosJackson[dialogoIndex].introduccion);
         
-        manejadorUI.MandarInfoDialogoJackson(dialogosJackson[dialogoIndex], manejadorMisiones.misiones[manejadorMisiones.misionIndex]);
+        manejadorUI.MostrarDialogoJackson(dialogosJackson[dialogoIndex], manejadorMisiones.misiones[manejadorMisiones.misionIndex].lugar);
 
     }
 
-    public void HacerAparecerDialogosCliente(int dialogoIndex)
+    public void MandarInfoDialogosClientes(int dialogoIndex)
     {
-        manejadorUI.MandarInfoDialogosClientes(dialogoClientes[dialogoIndex], manejadorMisiones.misiones[manejadorMisiones.misionIndex]);
+        manejadorUI.MostrarDialogoClientes(dialogoClientes[dialogoIndex], manejadorMisiones.misiones[manejadorMisiones.misionIndex].nombre);
+    }
+
+    internal void MandarCerrarDialogos()
+    {
+        manejadorUI.CerrarDialogos();
     }
 }
