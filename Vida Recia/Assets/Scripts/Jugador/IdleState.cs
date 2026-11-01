@@ -33,7 +33,7 @@ public class IdleState : IState
             return;
         }
         jugador.velocidadActual = Mathf.MoveTowards( jugador.velocidadActual, 0f, jugador.desaceleracionKmH * Time.deltaTime );
-        jugador.Inclinarse(5, 50);
+        //jugador.Inclinarse(5, 50);
         if (jugador.giro.x > 0.1f) jugador.animatorDiamante.SetInteger("Estado", 4);
         else if (jugador.giro.x < -0.1f) jugador.animatorDiamante.SetInteger("Estado", 5);
         else jugador.animatorDiamante.SetInteger("Estado", 0);

@@ -4,7 +4,6 @@ public class DesaparecerDialogos : IState
 {
     private readonly ManejadorDialogos dialogos;
     private readonly StateMachine fsm;
-    private float contador;
     public DesaparecerDialogos(ManejadorDialogos dialogos, StateMachine fsm)
     {
         this.dialogos = dialogos;

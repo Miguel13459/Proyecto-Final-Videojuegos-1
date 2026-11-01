@@ -109,12 +109,12 @@ public class Jugador : MonoBehaviour
         
     }
 
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
         Vector3 velocidadVertical = Vector3.up * rb.linearVelocity.y;
         Vector3 velocidadHorizontal = transform.forward * (velocidadActual / 3.6f);
         rb.linearVelocity = velocidadHorizontal + velocidadVertical;
-    }
+    }*/
 
     private void LeerControles()
     {
@@ -177,11 +177,21 @@ public class Jugador : MonoBehaviour
     {
         float rotacion = (giro.x * velocidadGiro) * sensibilidadGiro;
         rb.MoveRotation(rb.rotation * Quaternion.Euler(0, rotacion, 0));
-        Inclinarse(limiteInclinacion, velocidadInclinacion);
+        if (giro.x != 0)
+        {
+            inclinacionMoto += giro.x * -velocidadInclinacion * Time.deltaTime;
+            if (inclinacionMoto > limiteInclinacion) inclinacionMoto = limiteInclinacion;
+            if (inclinacionMoto < -limiteInclinacion) inclinacionMoto = -limiteInclinacion;
+        }
+        else
+        {
+            inclinacionMoto = Mathf.MoveTowards(inclinacionMoto, 0, velocidadInclinacion * Time.deltaTime);
+        }
+        //Inclinarse(limiteInclinacion, velocidadInclinacion);
         modeloMoto.transform.localRotation = Quaternion.Euler(0, 0, inclinacionMoto);
     }
 
-    public void Inclinarse(float limiteInclinacion, float velocidadInclinacion)
+    /*public void Inclinarse(float limiteInclinacion, float velocidadInclinacion)
     {
         if (giro.x != 0)
         {
@@ -193,7 +203,7 @@ public class Jugador : MonoBehaviour
         {
             inclinacionMoto = Mathf.MoveTowards(inclinacionMoto, 0, velocidadInclinacion * Time.deltaTime);
         }
-    }
+    }*/
 
     public void CambiarSonido(AudioClip nuevoSonido, bool loop)
     {

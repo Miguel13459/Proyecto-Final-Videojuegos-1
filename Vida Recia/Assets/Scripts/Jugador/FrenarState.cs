@@ -35,20 +35,6 @@ public class FrenarState : IState
                 return;
             }
             jugador.velocidadActual -= jugador.desaceleracionKmH * Time.deltaTime;
-            /*if (jugador.velocidadActual > 0f)
-            {
-                jugador.velocidadActual = Mathf.MoveTowards(
-                    jugador.velocidadActual,
-                    0f,
-                    jugador.desaceleracionKmH * Time.deltaTime
-                );
-                
-            }
-            else
-            {
-                jugador.velocidadActual = 0f;
-                fsm.ChangeState(new RetrocederState(jugador, fsm));
-            }*/
         }
         else
         {

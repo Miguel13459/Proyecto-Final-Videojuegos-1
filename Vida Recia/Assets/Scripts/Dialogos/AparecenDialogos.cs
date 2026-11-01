@@ -23,13 +23,13 @@ public class AparecenDialogos : IState
         if (tocoObjeto)
         {
             contador += Time.deltaTime;
-            if (contador > 5f) fsm.ChangeState(new DesaparecerDialogos(dialogos, fsm));
+            if (contador > 6.5f) fsm.ChangeState(new DesaparecerDialogos(dialogos, fsm));
         }
     }
 
     public void Exit()
     {
-        //throw new System.NotImplementedException();
+        contador = 0f;
     }
 
     private void HacerAparecerDialogosJackson(GameObject objeto)

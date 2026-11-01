@@ -1,8 +1,6 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class ManejadorUI : MonoBehaviour
 {
@@ -45,10 +43,10 @@ public class ManejadorUI : MonoBehaviour
         rellenoBarraVida.fillAmount = vidaActual / numVidas;
         //Debug.Log(vidaActual / numVidas);
 
-        velocidad = Mathf.FloorToInt(scriptJugador.velocidadActual * 5);
+        velocidad = Mathf.FloorToInt(scriptJugador.velocidadActual / 2);
         velocidad = velocidad < 0 ? 0 : velocidad;
         textoVelocimetro.text = velocidad.ToString();
-        rellenoBarraVelocimetro.fillAmount = (scriptJugador.velocidadActual * 5) * 0.01f;
+        rellenoBarraVelocimetro.fillAmount = (scriptJugador.velocidadActual / 2) * 0.01f;
     }
 
     public void MostrarDialogoJackson(DialogueData dialogoJackson, string lugar)

@@ -40,19 +40,19 @@ public class AcelerarState : IState
         }
         else
         {
-            jugador.velocidadActual -= jugador.desaceleracionKmH * Time.deltaTime;
+            //jugador.velocidadActual -= jugador.desaceleracionKmH * Time.deltaTime;
             jugador.CambiarSonido(jugador.desaceleracionSonido, false);
-            /* jugador.velocidadActual = Mathf.MoveTowards(
+            jugador.velocidadActual = Mathf.MoveTowards(
                 jugador.velocidadActual,
                 0f,
-                jugador.fuerzaFrenado * Time.deltaTime
+                jugador.desaceleracionKmH * Time.deltaTime
             );
-            jugador.sonidoMoto.clip = jugador.desaceleracion;
-            jugador.sonidoMoto.Play();*/
+            //jugador.sonidoMoto.clip = jugador.desaceleracion;
+            //jugador.sonidoMoto.Play();
         }
         jugador.velocidadActual = Mathf.Clamp(jugador.velocidadActual,0f,jugador.velocidadMaxima);
-        //jugador.rb.AddForce(jugador.transform.forward * jugador.velocidadActual);
-        //jugador.animatorDiamante.SetInteger("Estado", 1);
+        jugador.rb.AddForce(jugador.transform.forward * jugador.velocidadActual);
+        jugador.animatorDiamante.SetInteger("Estado", 1);
 
         jugador.Girar(1f, 20, 100);
         if(jugador.giro.x > 0.1f) jugador.animatorDiamante.SetInteger("Estado", 4);
