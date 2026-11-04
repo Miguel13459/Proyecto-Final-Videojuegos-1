@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Jugador : MonoBehaviour
 {
+    public static event Action<GameObject> OnPlayerCollided;
+
     [Header("Referencias")]
     public GameObject modeloMoto;
     PlayerInput playerInput;
@@ -12,21 +14,19 @@ public class Jugador : MonoBehaviour
     public GameObject llantaDelantera;
     public GameObject llantaTrasera;
 
-    [Header("Gravedad")]
-    public float gravedad;
-
     [Header("Inputs")]
-    public float aceleracion;
+    public float acelerar;
     public Vector2 giro;
 
     [Header("Velocidades")]
     public float velocidadActual;
     public float velocidadMaxima;
-    public float fuerzaAceleracion;
+    public float aceleracionKmH;
+    public float desaceleracionKmH;
 
 
     [Header("Marcha atras")]
-    public float fuerzaFrenado;
+    //public float fuerzaFrenado;
     public float haciaAtras;
     
 
@@ -34,6 +34,10 @@ public class Jugador : MonoBehaviour
     public AudioSource sonidoMoto;
     public AudioClip relentiSonido;
     public AudioClip aceleracionSonido;
+    public AudioClip aceleracionConstanteSonido;
+    public AudioClip desaceleracionSonido;
+    public AudioClip frenoSonido;
+
 
     [Header("Direccion")]
     public float inclinacionMoto;
@@ -47,7 +51,6 @@ public class Jugador : MonoBehaviour
     public Animator animatorDiamante;
 
     [Header("Pizza")]
-    public bool estaAcelerando = false;
     public int vidaPizza;
     public float tiempoInmunidad;
     public bool esInmune;
@@ -69,11 +72,12 @@ public class Jugador : MonoBehaviour
 
         giro = Vector2.zero;
 
-        gravedad = 20;
+        velocidadActual = 0;
+        velocidadMaxima = 100f * 2;
+        aceleracionKmH = 16.67f * 2;
+        desaceleracionKmH = 25f * 2;
 
-        velocidadMaxima = 20;
-        fuerzaAceleracion = 40;
-        fuerzaFrenado = 18;
+        //fuerzaFrenado = 18;
         haciaAtras = 8;
         velocidadGiro = 1.2f;
 
@@ -92,19 +96,30 @@ public class Jugador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        LeerControles();
         fsm.Update();
 
-        aceleracion = playerInput.actions["Acelerar"].ReadValue<float>();
-        giro = playerInput.actions["Girar"].ReadValue<Vector2>();
-        
-
-        float distanciaRecorrida = (velocidadActual / 3) * Time.deltaTime;
+        //hacer girar las llantas
+        float distanciaRecorrida = (velocidadActual / 3.6f) * Time.deltaTime;
         float grados = (distanciaRecorrida / radioLlanta) * Mathf.Rad2Deg;
         gradosRotacion += grados;
 
         llantaDelantera.transform.localRotation = Quaternion.Euler(0, 0, gradosRotacion);
         llantaTrasera.transform.localRotation = Quaternion.Euler(0, 0, gradosRotacion);
         
+    }
+
+    /*void FixedUpdate()
+    {
+        Vector3 velocidadVertical = Vector3.up * rb.linearVelocity.y;
+        Vector3 velocidadHorizontal = transform.forward * (velocidadActual / 3.6f);
+        rb.linearVelocity = velocidadHorizontal + velocidadVertical;
+    }*/
+
+    private void LeerControles()
+    {
+        acelerar = playerInput.actions["Acelerar"].ReadValue<float>();
+        giro = playerInput.actions["Girar"].ReadValue<Vector2>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -124,7 +139,18 @@ public class Jugador : MonoBehaviour
                 StartCoroutine(ActivarInmunidad());
             }
         }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("RecogerMision"))
+        {
+            OnPlayerCollided?.Invoke(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("EntregarMision"))
+        {
+            OnPlayerCollided?.Invoke(other.gameObject);
+        }
     }
 
     private void PerderPedido()
@@ -154,20 +180,38 @@ public class Jugador : MonoBehaviour
         if (giro.x != 0)
         {
             inclinacionMoto += giro.x * -velocidadInclinacion * Time.deltaTime;
-            if (inclinacionMoto > limiteInclinacion)
-            {
-                inclinacionMoto = limiteInclinacion;
-            }
-            if (inclinacionMoto < -limiteInclinacion)
-            {
-                inclinacionMoto = -limiteInclinacion;
-            }
-
+            if (inclinacionMoto > limiteInclinacion) inclinacionMoto = limiteInclinacion;
+            if (inclinacionMoto < -limiteInclinacion) inclinacionMoto = -limiteInclinacion;
         }
         else
         {
             inclinacionMoto = Mathf.MoveTowards(inclinacionMoto, 0, velocidadInclinacion * Time.deltaTime);
         }
+        //Inclinarse(limiteInclinacion, velocidadInclinacion);
         modeloMoto.transform.localRotation = Quaternion.Euler(0, 0, inclinacionMoto);
+    }
+
+    /*public void Inclinarse(float limiteInclinacion, float velocidadInclinacion)
+    {
+        if (giro.x != 0)
+        {
+            inclinacionMoto += giro.x * -velocidadInclinacion * Time.deltaTime;
+            if (inclinacionMoto > limiteInclinacion) inclinacionMoto = limiteInclinacion;
+            if (inclinacionMoto < -limiteInclinacion) inclinacionMoto = -limiteInclinacion;
+        }
+        else
+        {
+            inclinacionMoto = Mathf.MoveTowards(inclinacionMoto, 0, velocidadInclinacion * Time.deltaTime);
+        }
+    }*/
+
+    public void CambiarSonido(AudioClip nuevoSonido, bool loop)
+    {
+        if (sonidoMoto.clip == nuevoSonido)
+            return;
+
+        sonidoMoto.clip = nuevoSonido;
+        sonidoMoto.loop = loop;
+        sonidoMoto.Play();
     }
 }

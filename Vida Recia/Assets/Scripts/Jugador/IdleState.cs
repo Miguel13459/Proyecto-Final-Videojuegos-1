@@ -14,27 +14,26 @@ public class IdleState : IState
         jugador.animatorDiamante.SetInteger("Estado", 0);
         if (jugador.sonidoMoto.clip != jugador.relentiSonido)
         {
-            jugador.sonidoMoto.clip = jugador.relentiSonido;
-            jugador.sonidoMoto.loop = true;
-            jugador.sonidoMoto.Play();
+            jugador.CambiarSonido(jugador.relentiSonido, true);
         }
     }
 
     public void Execute()
     {
-        Debug.Log("Estas en idle");
-        if (jugador.aceleracion > 0.2f)
+        //Debug.Log("Estas en idle");
+        if (jugador.acelerar > 0.2f)
         {
             fsm.ChangeState(new AcelerarState(jugador, fsm));
             return;
         }
 
-        if (jugador.aceleracion < -0.2f)
+        if (jugador.acelerar < -0.2f)
         {
             fsm.ChangeState(new FrenarState(jugador, fsm));
             return;
         }
-        jugador.velocidadActual = Mathf.MoveTowards( jugador.velocidadActual, 0f, jugador.fuerzaFrenado * Time.deltaTime );
+        jugador.velocidadActual = Mathf.MoveTowards( jugador.velocidadActual, 0f, jugador.desaceleracionKmH * Time.deltaTime );
+        //jugador.Inclinarse(5, 50);
         if (jugador.giro.x > 0.1f) jugador.animatorDiamante.SetInteger("Estado", 4);
         else if (jugador.giro.x < -0.1f) jugador.animatorDiamante.SetInteger("Estado", 5);
         else jugador.animatorDiamante.SetInteger("Estado", 0);
@@ -42,6 +41,6 @@ public class IdleState : IState
 
     public void Exit()
     {
-        Debug.Log("Saliendo de idle");
+        //Debug.Log("Saliendo de idle");
     }
 }

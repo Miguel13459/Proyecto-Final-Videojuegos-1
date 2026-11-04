@@ -5,6 +5,7 @@ public class FrenarState : IState
 {
     private readonly Jugador jugador;
     private readonly StateMachine fsm;
+    private float contador;
 
     public FrenarState (Jugador jugador, StateMachine fsm)
     {
@@ -14,19 +15,26 @@ public class FrenarState : IState
 
     public void Enter()
     {
-        
+        jugador.CambiarSonido(jugador.frenoSonido, false);
+        contador = 0;
     }
 
     public void Execute()
     {
-        if(jugador.aceleracion < -0.1f)
+        contador += Time.deltaTime;
+        if(contador > 2f)
         {
-            if(jugador.velocidadActual <= 0f)
+            jugador.CambiarSonido(jugador.relentiSonido, true);
+        }
+
+        if(jugador.acelerar < -0.1f)
+        {
+            if (jugador.velocidadActual <= 0f)
             {
                 fsm.ChangeState(new RetrocederState(jugador, fsm));
                 return;
             }
-            jugador.velocidadActual -= jugador.fuerzaFrenado * Time.deltaTime;
+            jugador.velocidadActual -= jugador.desaceleracionKmH * Time.deltaTime;
         }
         else
         {
@@ -36,6 +44,7 @@ public class FrenarState : IState
 
     public void Exit()
     {
-        Debug.Log("Saliendo de frenar");
+        contador = 0f;
+        //Debug.Log("Saliendo de frenar");
     }
 }

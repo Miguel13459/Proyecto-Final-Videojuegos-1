@@ -16,31 +16,39 @@ public class AcelerarState : IState
     public void Enter()
     {
         jugador.animatorDiamante.SetInteger("Estado", 1);
-        jugador.sonidoMoto.clip = jugador.aceleracionSonido;
-        jugador.sonidoMoto.loop = true;
-        jugador.sonidoMoto.Play();
+        jugador.CambiarSonido(jugador.aceleracionSonido, false);
     }
 
     public void Execute()
     {
-        Debug.Log("Estas acelerando");
-        if (jugador.aceleracion < -0.1f)
+        //Debug.Log("Estas acelerando");
+        //metes frenos
+        if (jugador.acelerar < -0.1f)
         {
             fsm.ChangeState(new FrenarState(jugador, fsm));
             return;
         }
 
-        if (jugador.aceleracion > 0.1f)
+        //estas acelerando
+        if (jugador.acelerar > 0.1f)
         {
-            jugador.velocidadActual += jugador.fuerzaAceleracion * Time.deltaTime;
+            jugador.velocidadActual += jugador.aceleracionKmH * Time.deltaTime;
+            if(jugador.velocidadActual >= jugador.velocidadMaxima)
+            {
+                jugador.CambiarSonido(jugador.aceleracionConstanteSonido, true);
+            }
         }
         else
         {
+            //jugador.velocidadActual -= jugador.desaceleracionKmH * Time.deltaTime;
+            jugador.CambiarSonido(jugador.desaceleracionSonido, false);
             jugador.velocidadActual = Mathf.MoveTowards(
                 jugador.velocidadActual,
                 0f,
-                jugador.fuerzaFrenado * Time.deltaTime
+                jugador.desaceleracionKmH * Time.deltaTime
             );
+            //jugador.sonidoMoto.clip = jugador.desaceleracion;
+            //jugador.sonidoMoto.Play();
         }
         jugador.velocidadActual = Mathf.Clamp(jugador.velocidadActual,0f,jugador.velocidadMaxima);
         jugador.rb.AddForce(jugador.transform.forward * jugador.velocidadActual);
@@ -51,14 +59,15 @@ public class AcelerarState : IState
         else if (jugador.giro.x < -0.1f) jugador.animatorDiamante.SetInteger("Estado", 5);
         else jugador.animatorDiamante.SetInteger("Estado", 1);
 
-        if (jugador.velocidadActual == 0f)
+        if (jugador.velocidadActual <= 0.01f)
         {
+            jugador.velocidadActual = 0f;
             fsm.ChangeState(new IdleState(jugador, fsm));
         }
     }
 
     public void Exit()
     {
-        Debug.Log("Saliendo de Acelerar");
+        //Debug.Log("Saliendo de Acelerar");
     }
 }

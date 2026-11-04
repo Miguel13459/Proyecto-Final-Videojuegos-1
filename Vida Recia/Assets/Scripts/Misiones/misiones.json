@@ -5,15 +5,47 @@
             "nombre": "Michel",
             "lugar": "Hospital General",
             "coordenadas": [
-                30.2,2.0
+                -29.1,-41.3
             ]
         },
         {
             "misionId": 2,
             "nombre": "Señorita Melendez",
+            "lugar": "Residencia 101",
+            "coordenadas": [
+                -14.2,62.8
+            ]
+        },
+        {
+            "misionId": 3,
+            "nombre": "Don Pascacio",
             "lugar": "Residencia 102",
             "coordenadas": [
-                182.3,149.2
+                9,62.8
+            ]
+        },
+        {
+            "misionId": 4,
+            "nombre": "Caballero Hernandez",
+            "lugar": "Residencia 103",
+            "coordenadas": [
+                29.7,62.8
+            ]
+        },
+        {
+            "misionId": 5,
+            "nombre": "Licenciado Rogelio",
+            "lugar": "Otzo",
+            "coordenadas": [
+                -280.1,75.3
+            ]
+        },
+        {
+            "misionId": 6,
+            "nombre": "General Roberto",
+            "lugar": "Residencia 301",
+            "coordenadas": [
+                -91,114
             ]
         }
     ]
