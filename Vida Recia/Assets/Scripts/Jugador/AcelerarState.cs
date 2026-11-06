@@ -15,13 +15,12 @@ public class AcelerarState : IState
 
     public void Enter()
     {
-        jugador.animatorDiamante.SetInteger("Estado", 1);
+        //jugador.animatorDiamante.SetInteger("Estado", 1);
         jugador.CambiarSonido(jugador.aceleracionSonido, false);
     }
 
     public void Execute()
     {
-        //Debug.Log("Estas acelerando");
         //metes frenos
         if (jugador.acelerar < -0.1f)
         {
@@ -29,41 +28,20 @@ public class AcelerarState : IState
             return;
         }
 
-        //estas acelerando
-        if (jugador.acelerar > 0.1f)
+        if (jugador.acelerar <= 0.1f)
         {
-            jugador.velocidadActual += jugador.aceleracionKmH * Time.deltaTime;
-            if(jugador.velocidadActual >= jugador.velocidadMaxima)
-            {
-                jugador.CambiarSonido(jugador.aceleracionConstanteSonido, true);
-            }
+            fsm.ChangeState(new DesacelerarState(jugador, fsm));
+            return;
         }
-        else
-        {
-            //jugador.velocidadActual -= jugador.desaceleracionKmH * Time.deltaTime;
-            jugador.CambiarSonido(jugador.desaceleracionSonido, false);
-            jugador.velocidadActual = Mathf.MoveTowards(
-                jugador.velocidadActual,
-                0f,
-                jugador.desaceleracionKmH * Time.deltaTime
-            );
-            //jugador.sonidoMoto.clip = jugador.desaceleracion;
-            //jugador.sonidoMoto.Play();
-        }
-        jugador.velocidadActual = Mathf.Clamp(jugador.velocidadActual,0f,jugador.velocidadMaxima);
-        jugador.rb.AddForce(jugador.transform.forward * jugador.velocidadActual);
-        jugador.animatorDiamante.SetInteger("Estado", 1);
 
+        jugador.velocidadActual += jugador.aceleracionKmH * Time.fixedDeltaTime;
+        jugador.velocidadActual = Mathf.Clamp(jugador.velocidadActual, 0f, jugador.velocidadMaxima);
+        if (jugador.velocidadActual >= jugador.velocidadMaxima)
+        {
+            jugador.CambiarSonido(jugador.aceleracionConstanteSonido, true);
+        }
         jugador.Girar(1f, 20, 100);
-        if(jugador.giro.x > 0.1f) jugador.animatorDiamante.SetInteger("Estado", 4);
-        else if (jugador.giro.x < -0.1f) jugador.animatorDiamante.SetInteger("Estado", 5);
-        else jugador.animatorDiamante.SetInteger("Estado", 1);
-
-        if (jugador.velocidadActual <= 0.01f)
-        {
-            jugador.velocidadActual = 0f;
-            fsm.ChangeState(new IdleState(jugador, fsm));
-        }
+        jugador.ActualizarAnimacion(1);
     }
 
     public void Exit()

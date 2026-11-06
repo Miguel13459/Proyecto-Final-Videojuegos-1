@@ -21,25 +21,29 @@ public class FrenarState : IState
 
     public void Execute()
     {
-        contador += Time.deltaTime;
+        if (jugador.acelerar >= -0.1f)
+        {
+            fsm.ChangeState(new IdleState(jugador, fsm));
+            return;
+        }
+
+        if (jugador.velocidadActual <= 0f)
+        {
+            fsm.ChangeState(new RetrocederState(jugador, fsm));
+            return;
+        }
+
+        /*contador += Time.deltaTime;
         if(contador > 2f)
         {
             jugador.CambiarSonido(jugador.relentiSonido, true);
-        }
+        }*/
 
-        if(jugador.acelerar < -0.1f)
-        {
-            if (jugador.velocidadActual <= 0f)
-            {
-                fsm.ChangeState(new RetrocederState(jugador, fsm));
-                return;
-            }
-            jugador.velocidadActual -= jugador.desaceleracionKmH * Time.deltaTime;
-        }
-        else
-        {
-            fsm.ChangeState(new IdleState(jugador, fsm));
-        }
+        jugador.velocidadActual = Mathf.MoveTowards(
+            jugador.velocidadActual,
+            0f,
+            jugador.desaceleracionKmH * 2f * Time.fixedDeltaTime
+        );
     }
 
     public void Exit()
