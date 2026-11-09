@@ -18,7 +18,7 @@ public class AparecenDialogos : IState
         tocoObjeto = false;
         dialogoEstaActivo = false;
         Jugador.OnPlayerCollided += HacerAparecerDialogos;
-        
+
     }
     public void Execute()
     {

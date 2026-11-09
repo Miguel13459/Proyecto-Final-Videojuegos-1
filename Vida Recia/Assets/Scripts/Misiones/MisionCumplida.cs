@@ -15,9 +15,7 @@ public class MisionCumplida : IState
     {
         mision.EsconderCliente();
         mision.MandarCerrarVida();
-        
         contador = 0;
-
     }
 
     public void Execute()

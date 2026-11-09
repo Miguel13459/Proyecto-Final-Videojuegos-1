@@ -4,7 +4,7 @@ public class EsperandoPedidoState : IState
 {
     private readonly ManejadorMisiones mision;
     private readonly StateMachine fsm;
-    
+
     //GameObject jackson;
     public EsperandoPedidoState(ManejadorMisiones mision, StateMachine fsm)
     {
@@ -16,7 +16,7 @@ public class EsperandoPedidoState : IState
     {
         Debug.Log("Entrando a EsperandoPedidoState");
         mision.AparecerAJackson();
-        Jugador.OnPlayerCollided += HandlePlayerCollision;
+        Jugador.OnPlayerCollided += CambiarAMisionEnCurso;
     }
 
     public void Execute()
@@ -27,10 +27,10 @@ public class EsperandoPedidoState : IState
 
     public void Exit()
     {
-        Jugador.OnPlayerCollided -= HandlePlayerCollision;
+        Jugador.OnPlayerCollided -= CambiarAMisionEnCurso;
     }
 
-    private void HandlePlayerCollision(GameObject objeto)
+    private void CambiarAMisionEnCurso(GameObject objeto)
     {
         //Debug.Log("jugador choco contra: " + objeto.name);
 

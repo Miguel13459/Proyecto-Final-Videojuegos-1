@@ -10,7 +10,7 @@ public class ManejadorMisiones : MonoBehaviour
     public GameObject objetoEntregarMision;
     public ManejadorUI manejadorUI;
     public ManejadorDialogos manejadorDialogos;
-    
+
 
     public int misionIndex;
 
@@ -67,7 +67,7 @@ public class ManejadorMisiones : MonoBehaviour
 
     public void AparecerAJackson()
     {
-        Debug.Log("Activando procolo jackson"); 
+        Debug.Log("Activando procolo jackson");
         objetoRecogerMision.SetActive(true);
     }
 
@@ -77,11 +77,11 @@ public class ManejadorMisiones : MonoBehaviour
     }
 
     public void AparecerCLiente()
-    {   
+    {
         misionIndex = Random.Range(4, misiones.Count);
         float x = misiones[misionIndex].coordenadas[0];
         float z = misiones[misionIndex].coordenadas[1];
-        objetoEntregarMision.transform.position = new Vector3(x,0,z);
+        objetoEntregarMision.transform.position = new Vector3(x, 0, z);
         objetoEntregarMision.SetActive(true);
 
     }

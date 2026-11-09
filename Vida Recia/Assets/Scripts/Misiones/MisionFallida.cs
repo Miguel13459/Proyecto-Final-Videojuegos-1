@@ -16,20 +16,17 @@ public class MisionFallida : IState
     {
         mision.EsconderCliente();
         mision.MandarCerrarVida();
-        
-
     }
 
     public void Execute()
     {
         mision.StatusMision("fallida");
         contador += Time.deltaTime;
-        if(contador >= 10) fsm.ChangeState(new EsperandoPedidoState(mision, fsm));
+        if (contador >= 10) fsm.ChangeState(new EsperandoPedidoState(mision, fsm));
     }
 
     public void Exit()
     {
         Debug.Log("Saliendo estado fallar mision");
-
     }
 }

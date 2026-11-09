@@ -23,7 +23,7 @@ public class IniciarPartida : MonoBehaviour
         color.a -= Time.deltaTime;
         if (color.a <= 0) color.a = 0;
         imagenPantalla.color = color;
-        //if (jugador.arranqueEnCurso == false && imagenPantalla.color.a == 0) Destroy(this.gameObject);
+        if (jugador.arranqueEnCurso == false && imagenPantalla.color.a == 0) this.gameObject.SetActive(false);
     }
 
     IEnumerator ComenzarPartida()

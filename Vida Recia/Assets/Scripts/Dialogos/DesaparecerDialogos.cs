@@ -19,7 +19,7 @@ public class DesaparecerDialogos : IState
 
     public void Execute()
     {
-        
+
     }
 
     public void Exit()
