@@ -93,6 +93,9 @@ public class ManejadorMisiones : MonoBehaviour
 
     public void StatusMision(string status)
     {
+        Debug.Log("Status solicitado: " + status);
+        Debug.Log("¿Hay diálogo activo?: " + manejadorDialogos.dialogoEstaActivo);
+
         switch (status)
         {
             case "esperando":
@@ -100,6 +103,7 @@ public class ManejadorMisiones : MonoBehaviour
                 descripcion = primeraVezRecogiendo ? "Dirigete con el jefe Jackson para comenzar" : "Dirigete con el jefe Jackson, antes de que se vuelva loco";
                 if (manejadorDialogos.dialogoEstaActivo == false)
                 {
+                    manejadorUI.CerrarStatus();
                     manejadorUI.MostrarMision(titulo, descripcion);
                 }
                 break;
@@ -108,24 +112,20 @@ public class ManejadorMisiones : MonoBehaviour
                 descripcion = "Entrega la pizza al cliente en el punto verde del mapa";
                 if (manejadorDialogos.dialogoEstaActivo == false)
                 {
+                    manejadorUI.CerrarStatus();
                     manejadorUI.MostrarMision(titulo, descripcion);
                 }
                 break;
             case "cumplida":
+                Debug.Log("Si entra a mision cumplida");
                 titulo = "HAS ENTREGADO LA PIZZA";
                 descripcion = "Regresa por otra pizza con el desquisiado Jackson";
-                if (manejadorDialogos.dialogoEstaActivo == false)
-                {
-                    manejadorUI.MostrarStatus(titulo, descripcion);
-                }
+                StartCoroutine(manejadorUI.MostrarStatusCorrutina(titulo, descripcion, manejadorDialogos.dialogoEstaActivo));
                 break;
             case "fallida":
                 titulo = "JOLINES LA HAS LIADO";
                 descripcion = "Regresa por otra pizza con el desalmado Jackson";
-                if (manejadorDialogos.dialogoEstaActivo == false)
-                {
-                    manejadorUI.MostrarStatus(titulo, descripcion);
-                }
+                StartCoroutine(manejadorUI.MostrarStatusCorrutina(titulo, descripcion, manejadorDialogos.dialogoEstaActivo));
                 break;
         }
     }
@@ -143,10 +143,5 @@ public class ManejadorMisiones : MonoBehaviour
     public void MandarCerrarVida()
     {
         manejadorUI.CerrarVidaPizza();
-    }
-
-    public void TerminaMision()
-    {
-        CerrarCelularMisiones();
     }
 }

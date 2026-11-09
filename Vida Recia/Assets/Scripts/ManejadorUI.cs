@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -121,5 +122,17 @@ public class ManejadorUI : MonoBehaviour
     public void CerrarVidaPizza()
     {
         vidaPizza.SetActive(false);
+    }
+
+    public IEnumerator MostrarStatusCorrutina(string titulo, string descripcion, bool dialogoEstaActivo)
+    {
+        Debug.Log("Entra a la corrutina");
+        while (dialogoEstaActivo)
+        {
+            Debug.Log("Entra al while");
+            yield return null;
+        }
+        yield return new WaitForSeconds(0.3f);
+        MostrarStatus(titulo, descripcion);
     }
 }

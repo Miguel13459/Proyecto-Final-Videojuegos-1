@@ -4,6 +4,7 @@ public class MisionCumplida : IState
 {
     private readonly ManejadorMisiones mision;
     private readonly StateMachine fsm;
+    private float contador;
     public MisionCumplida(ManejadorMisiones mision, StateMachine fsm)
     {
         this.mision = mision;
@@ -14,16 +15,20 @@ public class MisionCumplida : IState
     {
         mision.EsconderCliente();
         mision.MandarCerrarVida();
+        
+        contador = 0;
+
     }
 
     public void Execute()
     {
-        fsm.ChangeState(new EsperandoPedidoState(mision, fsm));
+        mision.StatusMision("cumplida");
+        contador += Time.deltaTime;
+        if (contador >= 10) fsm.ChangeState(new EsperandoPedidoState(mision, fsm));
     }
 
     public void Exit()
     {
         Debug.Log("Saliendo estado cumplir mision");
-        
     }
 }
