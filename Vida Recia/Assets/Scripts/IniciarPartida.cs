@@ -14,6 +14,7 @@ public class IniciarPartida : MonoBehaviour
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
         imagenPantalla = pantallaNegraComenzar.GetComponent<Image>();
         StartCoroutine(ComenzarPartida());
+        jugador.enabled = false;
     }
 
     // Update is called once per frame
@@ -23,12 +24,17 @@ public class IniciarPartida : MonoBehaviour
         color.a -= Time.deltaTime;
         if (color.a <= 0) color.a = 0;
         imagenPantalla.color = color;
-        if (jugador.arranqueEnCurso == false && imagenPantalla.color.a == 0) this.gameObject.SetActive(false);
+        if (jugador.arranqueEnCurso == false && imagenPantalla.color.a == 0)
+        {
+            jugador.enabled = true;
+            this.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator ComenzarPartida()
     {
         jugador.CambiarSonido(jugador.encendido, false);
+        jugador.arranqueEnCurso = true;
         yield return new WaitForSeconds(jugador.encendido.length);
         jugador.arranqueEnCurso = false;
         jugador.CambiarSonido(jugador.relentiSonido, true);

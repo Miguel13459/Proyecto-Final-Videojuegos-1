@@ -72,9 +72,6 @@ public class Jugador : MonoBehaviour
 
     void Start()
     {
-        this.transform.rotation = Quaternion.Euler(0, -90, 0);
-        this.transform.position = Vector3.up * 10;
-
         playerInput = this.GetComponent<PlayerInput>();
         rb = this.GetComponent<Rigidbody>();
         //sonidoMoto = this.GetComponent<AudioSource>();
