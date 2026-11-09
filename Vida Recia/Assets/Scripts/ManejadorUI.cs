@@ -4,22 +4,36 @@ using UnityEngine.UI;
 
 public class ManejadorUI : MonoBehaviour
 {
+    [Header("Referencias jugador")]
     GameObject jugador;
     Jugador scriptJugador;
 
+    [Header("UI jugador")]
     public GameObject velocimetroBarra;
     public GameObject barraVida;
     Image rellenoBarraVelocimetro;
     Image rellenoBarraVida;
     public TMP_Text textoVelocimetro;
+    public GameObject vidaPizza;
 
     int velocidad;
     int vidaActual;
     int numVidas;
 
+    [Header("Dialogos")]
     public GameObject dialogos;
     public TMP_Text personaje;
     public TMP_Text dialogo;
+
+    [Header("Misiones")]
+    public GameObject misiones;
+    public TMP_Text titulo;
+    public TMP_Text descripcion;
+    public GameObject statusMisiones;
+    public TMP_Text tituloStatus;
+    public TMP_Text descripcionStatus;
+
+    public Image pantallaNegroComenzar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,7 +46,12 @@ public class ManejadorUI : MonoBehaviour
         rellenoBarraVelocimetro.fillAmount = 0;
         rellenoBarraVida = barraVida.GetComponent<Image>();
         rellenoBarraVida.fillAmount = 1;
+
+        //dialogos
         dialogos.SetActive(false);
+
+        //misiones
+        misiones.SetActive(false);
     }
 
     // Update is called once per frame
@@ -66,5 +85,41 @@ public class ManejadorUI : MonoBehaviour
     internal void CerrarDialogos()
     {
         dialogos.SetActive(false);
+    }
+
+    public void MostrarMision(string titulo, string descripcion)
+    {
+        misiones.SetActive(true);
+        this.titulo.text = titulo;
+        this.descripcion.text = descripcion;
+
+    }
+
+    public void CerrarMision()
+    {
+        misiones.SetActive(false);
+    }
+
+    public void MostrarStatus(string titulo, string descripcion)
+    {
+        statusMisiones.SetActive(true);
+        this.tituloStatus.text = titulo;
+        this.descripcionStatus.text = descripcion;
+
+    }
+
+    public void CerrarStatus()
+    {
+        statusMisiones.SetActive(false);
+    }
+
+    public void AparecerVidaPizza()
+    {
+        vidaPizza.SetActive(true);
+    }
+
+    public void CerrarVidaPizza()
+    {
+        vidaPizza.SetActive(false);
     }
 }

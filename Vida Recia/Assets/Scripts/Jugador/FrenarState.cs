@@ -5,7 +5,6 @@ public class FrenarState : IState
 {
     private readonly Jugador jugador;
     private readonly StateMachine fsm;
-    private float contador;
 
     public FrenarState (Jugador jugador, StateMachine fsm)
     {
@@ -16,7 +15,6 @@ public class FrenarState : IState
     public void Enter()
     {
         jugador.CambiarSonido(jugador.frenoSonido, false);
-        contador = 0;
     }
 
     public void Execute()
@@ -48,7 +46,6 @@ public class FrenarState : IState
 
     public void Exit()
     {
-        contador = 0f;
         //Debug.Log("Saliendo de frenar");
     }
 }

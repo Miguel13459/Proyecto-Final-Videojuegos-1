@@ -8,22 +8,34 @@ public class ManejadorMisiones : MonoBehaviour
 
     public GameObject objetoRecogerMision;
     public GameObject objetoEntregarMision;
+    public ManejadorUI manejadorUI;
+    public ManejadorDialogos manejadorDialogos;
+    
 
     public int misionIndex;
 
+    private bool primeraVezRecogiendo;
+
     StateMachine fsm;
+
+    string titulo;
+    string descripcion;
 
     // Los puse aca mejor
     void Awake()
     {
         Debug.Log("Iniciando ManejadorMisiones");
         CargarMisiones();
-        fsm = new StateMachine();
-        fsm.Initialize(new EsperandoPedidoState(this, fsm));
-        objetoRecogerMision.transform.position = new Vector3(-2.5f, 0, 3.5f);
         objetoEntregarMision.transform.position = Vector3.zero;
         objetoEntregarMision.SetActive(false);
-        
+        primeraVezRecogiendo = true;
+
+        titulo = "";
+        descripcion = "";
+
+
+        fsm = new StateMachine();
+        fsm.Initialize(new EsperandoPedidoState(this, fsm));
     }
 
     // Update is called once per frame
@@ -77,5 +89,64 @@ public class ManejadorMisiones : MonoBehaviour
     public void EsconderCliente()
     {
         objetoEntregarMision.SetActive(false);
+    }
+
+    public void StatusMision(string status)
+    {
+        switch (status)
+        {
+            case "esperando":
+                titulo = primeraVezRecogiendo ? "TOMA UNA PIZZA" : "REGRESA POR OTRA PIZZA";
+                descripcion = primeraVezRecogiendo ? "Dirigete con el jefe Jackson para comenzar" : "Dirigete con el jefe Jackson, antes de que se vuelva loco";
+                if (manejadorDialogos.dialogoEstaActivo == false)
+                {
+                    manejadorUI.MostrarMision(titulo, descripcion);
+                }
+                break;
+            case "enCurso":
+                titulo = "ENTREGA LA PIZZA AL CLIENTE";
+                descripcion = "Entrega la pizza al cliente en el punto verde del mapa";
+                if (manejadorDialogos.dialogoEstaActivo == false)
+                {
+                    manejadorUI.MostrarMision(titulo, descripcion);
+                }
+                break;
+            case "cumplida":
+                titulo = "HAS ENTREGADO LA PIZZA";
+                descripcion = "Regresa por otra pizza con el desquisiado Jackson";
+                if (manejadorDialogos.dialogoEstaActivo == false)
+                {
+                    manejadorUI.MostrarStatus(titulo, descripcion);
+                }
+                break;
+            case "fallida":
+                titulo = "JOLINES LA HAS LIADO";
+                descripcion = "Regresa por otra pizza con el desalmado Jackson";
+                if (manejadorDialogos.dialogoEstaActivo == false)
+                {
+                    manejadorUI.MostrarStatus(titulo, descripcion);
+                }
+                break;
+        }
+    }
+
+    public void CerrarCelularMisiones()
+    {
+        manejadorUI.CerrarMision();
+    }
+
+    public void MandarAparecerVida()
+    {
+        manejadorUI.AparecerVidaPizza();
+    }
+
+    public void MandarCerrarVida()
+    {
+        manejadorUI.CerrarVidaPizza();
+    }
+
+    public void TerminaMision()
+    {
+        CerrarCelularMisiones();
     }
 }

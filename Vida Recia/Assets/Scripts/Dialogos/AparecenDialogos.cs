@@ -6,6 +6,7 @@ public class AparecenDialogos : IState
     private readonly StateMachine fsm;
     private float contador;
     private bool tocoObjeto;
+    private bool dialogoEstaActivo;
     public AparecenDialogos(ManejadorDialogos dialogos, StateMachine fsm)
     {
         this.dialogos = dialogos;
@@ -15,7 +16,8 @@ public class AparecenDialogos : IState
     {
         contador = 0f;
         tocoObjeto = false;
-        Jugador.OnPlayerCollided += HacerAparecerDialogosJackson;
+        dialogoEstaActivo = false;
+        Jugador.OnPlayerCollided += HacerAparecerDialogos;
         
     }
     public void Execute()
@@ -23,7 +25,10 @@ public class AparecenDialogos : IState
         if (tocoObjeto)
         {
             contador += Time.deltaTime;
-            if (contador > 6.5f) fsm.ChangeState(new DesaparecerDialogos(dialogos, fsm));
+            if (contador > 6.5f)
+            {
+                fsm.ChangeState(new DesaparecerDialogos(dialogos, fsm));
+            }
         }
     }
 
@@ -32,21 +37,22 @@ public class AparecenDialogos : IState
         contador = 0f;
     }
 
-    private void HacerAparecerDialogosJackson(GameObject objeto)
+    private void HacerAparecerDialogos(GameObject objeto)
     {
+        dialogoEstaActivo = true;
         if (objeto.CompareTag("RecogerMision"))
         {
             tocoObjeto = true;
             int dialogoIndex;
             dialogoIndex = Random.Range(0, dialogos.dialogosJackson.Count);
-            dialogos.MandarInfoDialogoJackson(dialogoIndex);
+            dialogos.MandarInfoDialogoJackson(dialogoIndex, dialogoEstaActivo);
         }
         if (objeto.CompareTag("EntregarMision"))
         {
             tocoObjeto = true;
             int dialogoIndex;
             dialogoIndex = Random.Range(0, dialogos.dialogoClientes.Count);
-            dialogos.MandarInfoDialogosClientes(dialogoIndex);
+            dialogos.MandarInfoDialogosClientes(dialogoIndex, dialogoEstaActivo);
         }
     }
 }

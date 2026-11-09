@@ -9,6 +9,8 @@ TagManager:
   - Obstaculo
   - RecogerMision
   - EntregarMision
+  - Suelo
+  - Calles
   layers:
   - Default
   - TransparentFX

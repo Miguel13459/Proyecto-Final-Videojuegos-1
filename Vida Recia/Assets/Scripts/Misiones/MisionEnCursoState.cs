@@ -9,21 +9,19 @@ public class MisionEnCursoState : IState
     {
         this.mision = mision;
         this.fsm = fsm;
-        //misionIndex = -1;
     }
 
     public void Enter()
     {
         mision.EsconderAJackson();
         mision.AparecerCLiente();
+        mision.MandarAparecerVida();
         Jugador.OnPlayerCollided += HandlePlayerCollision;
-
-
     }
 
     public void Execute()
     {
-        //throw new System.NotImplementedException();
+        mision.StatusMision("enCurso");
     }
 
     public void Exit()

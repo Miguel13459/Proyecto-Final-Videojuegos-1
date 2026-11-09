@@ -4,6 +4,7 @@ public class DesaparecerDialogos : IState
 {
     private readonly ManejadorDialogos dialogos;
     private readonly StateMachine fsm;
+    bool dialogoEstaActivo;
     public DesaparecerDialogos(ManejadorDialogos dialogos, StateMachine fsm)
     {
         this.dialogos = dialogos;
@@ -11,7 +12,8 @@ public class DesaparecerDialogos : IState
     }
     public void Enter()
     {
-        dialogos.MandarCerrarDialogos();
+        dialogoEstaActivo = false;
+        dialogos.MandarCerrarDialogos(dialogoEstaActivo);
         fsm.ChangeState(new AparecenDialogos(dialogos, fsm));
     }
 

@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CalleSinBanquetaIzq
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9453b6078ac75a41b0723a4b156a6ef, type: 3}
+      propertyPath: m_TagString
+      value: Calles
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: c9453b6078ac75a41b0723a4b156a6ef, type: 3}
+      propertyPath: m_TagString
+      value: Calles
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

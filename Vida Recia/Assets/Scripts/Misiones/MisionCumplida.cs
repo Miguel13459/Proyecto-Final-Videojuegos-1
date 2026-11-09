@@ -13,6 +13,7 @@ public class MisionCumplida : IState
     public void Enter()
     {
         mision.EsconderCliente();
+        mision.MandarCerrarVida();
     }
 
     public void Execute()

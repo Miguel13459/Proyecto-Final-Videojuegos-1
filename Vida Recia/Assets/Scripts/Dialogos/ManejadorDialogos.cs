@@ -12,9 +12,12 @@ public class ManejadorDialogos : MonoBehaviour
     public ManejadorMisiones manejadorMisiones;
     StateMachine fsm;
 
+    public bool dialogoEstaActivo;
+
     private void Awake()
     {
         CargarDialogos();
+        dialogoEstaActivo = false;
         fsm = new StateMachine();
         fsm.Initialize(new AparecenDialogos(this, fsm));
     }
@@ -44,22 +47,27 @@ public class ManejadorDialogos : MonoBehaviour
         );
 
     }
-    
-    public void MandarInfoDialogoJackson(int dialogoIndex)
+
+    public void MandarInfoDialogoJackson(int dialogoIndex, bool dialogoEstaActivo)
     {
         //Debug.Log(dialogosJackson[dialogoIndex].introduccion);
-        
+
+        this.dialogoEstaActivo = dialogoEstaActivo;
         manejadorUI.MostrarDialogoJackson(dialogosJackson[dialogoIndex], manejadorMisiones.misiones[manejadorMisiones.misionIndex].lugar);
-
+        manejadorMisiones.CerrarCelularMisiones();
     }
 
-    public void MandarInfoDialogosClientes(int dialogoIndex)
+    public void MandarInfoDialogosClientes(int dialogoIndex, bool dialogoEstaActivo)
     {
+        this.dialogoEstaActivo = dialogoEstaActivo;
         manejadorUI.MostrarDialogoClientes(dialogoClientes[dialogoIndex], manejadorMisiones.misiones[manejadorMisiones.misionIndex].nombre);
+        manejadorMisiones.CerrarCelularMisiones();
     }
 
-    internal void MandarCerrarDialogos()
+    public void MandarCerrarDialogos(bool dialogoEstaActivo)
     {
+        this.dialogoEstaActivo = dialogoEstaActivo;
         manejadorUI.CerrarDialogos();
     }
+
 }
