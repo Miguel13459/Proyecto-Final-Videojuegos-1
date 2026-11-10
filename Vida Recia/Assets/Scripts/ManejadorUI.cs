@@ -71,9 +71,30 @@ public class ManejadorUI : MonoBehaviour
 
     public void MostrarDialogoJackson(DialogueData dialogoJackson, string lugar)
     {
+        Debug.Log("===== DIAGNÓSTICO DE DIÁLOGOS =====");
+
+        Debug.Log("ManejadorUI: " + this.name);
+        Debug.Log("¿ManejadorUI sigue activo?: " + (this != null));
+
+        Debug.Log("¿Dialogos es null?: " + (dialogos == null));
+
+        if (dialogos == null)
+        {
+            Debug.LogError("¡LA REFERENCIA DIALOGOS ESTÁ DESTRUIDA!");
+            return;
+        }
+
+        Debug.Log("Objeto Dialogos: " + dialogos.name);
+        Debug.Log("ID de Dialogos: " + dialogos.GetEntityId());
+
         dialogos.SetActive(true);
+
         personaje.text = "Jefe el loco Jackson";
-        dialogo.text = dialogoJackson.introduccion + " " + dialogoJackson.lugar + " " + lugar + " " + dialogoJackson.final;
+
+        dialogo.text = dialogoJackson.introduccion + " "
+            + dialogoJackson.lugar + " "
+            + lugar + " "
+            + dialogoJackson.final;
     }
 
     public void MostrarDialogoClientes(DialogoClientes dialogoClientes, string nombre)
@@ -124,10 +145,10 @@ public class ManejadorUI : MonoBehaviour
         vidaPizza.SetActive(false);
     }
 
-    public IEnumerator MostrarStatusCorrutina(string titulo, string descripcion, bool dialogoEstaActivo)
+    public IEnumerator MostrarStatusCorrutina(string titulo, string descripcion, ManejadorDialogos manejadorDialogos)
     {
         Debug.Log("Entra a la corrutina");
-        while (dialogoEstaActivo)
+        while (manejadorDialogos.dialogoEstaActivo)
         {
             Debug.Log("Entra al while");
             yield return null;

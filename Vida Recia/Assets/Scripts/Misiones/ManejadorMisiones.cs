@@ -120,12 +120,12 @@ public class ManejadorMisiones : MonoBehaviour
                 Debug.Log("Si entra a mision cumplida");
                 titulo = "HAS ENTREGADO LA PIZZA";
                 descripcion = "Regresa por otra pizza con el desquisiado Jackson";
-                StartCoroutine(manejadorUI.MostrarStatusCorrutina(titulo, descripcion, manejadorDialogos.dialogoEstaActivo));
+                StartCoroutine(manejadorUI.MostrarStatusCorrutina(titulo, descripcion, manejadorDialogos));
                 break;
             case "fallida":
                 titulo = "JOLINES LA HAS LIADO";
                 descripcion = "Regresa por otra pizza con el desalmado Jackson";
-                StartCoroutine(manejadorUI.MostrarStatusCorrutina(titulo, descripcion, manejadorDialogos.dialogoEstaActivo));
+                StartCoroutine(manejadorUI.MostrarStatusCorrutina(titulo, descripcion, manejadorDialogos));
                 break;
         }
     }
