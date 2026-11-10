@@ -73,6 +73,12 @@ public class ManejadorUI : MonoBehaviour
     {
         Debug.Log("===== DIAGNÓSTICO DE DIÁLOGOS =====");
 
+        if (this == null)
+        {
+            Debug.LogError("Se está intentando utilizar un ManejadorUI destruido.");
+            return;
+        }
+
         Debug.Log("ManejadorUI: " + this.name);
         Debug.Log("¿ManejadorUI sigue activo?: " + (this != null));
 

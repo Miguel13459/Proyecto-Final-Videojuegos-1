@@ -268,4 +268,10 @@ public class Jugador : MonoBehaviour
             Debug.Log("Puede saltar?" + puedeSaltar);
         }
     }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ReiniciarEventos()
+    {
+        OnPlayerCollided = null;
+    }
 }

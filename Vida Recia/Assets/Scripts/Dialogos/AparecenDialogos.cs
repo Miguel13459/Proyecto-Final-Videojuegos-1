@@ -35,6 +35,7 @@ public class AparecenDialogos : IState
     public void Exit()
     {
         contador = 0f;
+        Jugador.OnPlayerCollided -= HacerAparecerDialogos;
     }
 
     private void HacerAparecerDialogos(GameObject objeto)
