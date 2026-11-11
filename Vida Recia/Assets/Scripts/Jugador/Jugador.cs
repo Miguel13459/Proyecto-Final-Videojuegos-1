@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Jugador : MonoBehaviour
 {
-    public static event Action<GameObject> OnPlayerCollided;
+    public event Action<GameObject> OnPlayerCollided;
 
     [Header("Referencias")]
     public GameObject modeloMoto;
@@ -235,54 +235,21 @@ public class Jugador : MonoBehaviour
         Debug.Log("Perdiste el pedido");
     }
 
-    IEnumerator ActivarInmunidad()
-    {
-        //esInmune = true;
-        float tiempoPasado = 0;
-        while (tiempoPasado < tiempoInmunidad)
-        {
-            modeloMoto.SetActive(!modeloMoto.activeSelf);
-            yield return new WaitForSeconds(0.1f);
-            tiempoPasado += 0.1f;
-        }
+    
 
-        this.gameObject.SetActive(true);
-        esInmune = false;
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (esInmune) return;
         //esInmune = true;
         if (collision == null) return;
-        if (collision.gameObject.CompareTag("Obstaculo"))
-        {
-            vidaPizza--;
-            if (vidaPizza <= 0)
-            {
-                PerderPedido();
-            }
-            else
-            {
-                StartCoroutine(ActivarInmunidad());
-            }
-        }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {
         if (other == null) return;
         if (other.gameObject.CompareTag("Obstaculo"))
         {
-            vidaPizza--;
-            if (vidaPizza <= 0)
-            {
-                PerderPedido();
-            }
-            else
-            {
-                StartCoroutine(ActivarInmunidad());
-            }
+            PerderVidaPizza();
         }
         if (other.gameObject.CompareTag("RecogerMision"))
         {
@@ -294,6 +261,41 @@ public class Jugador : MonoBehaviour
         }
     }
 
+    private void PerderVidaPizza()
+    {
+        if (esInmune)
+        {
+            return;
+        }
+        else
+        {
+            if (vidaPizza <= 0)
+            {
+                PerderPedido();
+            }
+            else
+            {
+                StartCoroutine(ActivarInmunidad());
+            }
+        }
+    }
+
+    IEnumerator ActivarInmunidad()
+    {
+        esInmune = true;
+        float tiempoPasado = 0;
+        while (tiempoPasado < tiempoInmunidad)
+        {
+            modeloMoto.SetActive(!modeloMoto.activeSelf);
+            yield return new WaitForSeconds(0.1f);
+            tiempoPasado += Time.deltaTime;
+        }
+
+        this.gameObject.SetActive(true);
+        Debug.Log("Tiempo inmunidad: " + tiempoInmunidad);
+        if(tiempoPasado >= tiempoInmunidad) esInmune = false;
+    }
+
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Suelo"))
@@ -302,12 +304,12 @@ public class Jugador : MonoBehaviour
             Debug.Log("Puede saltar?" + puedeSaltar);
         }
     }
-
+    /*
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ReiniciarEventos()
     {
         OnPlayerCollided = null;
-    }
+    }*/
 
     
 }

@@ -10,7 +10,7 @@ public class ManejadorMisiones : MonoBehaviour
     public GameObject objetoEntregarMision;
     public ManejadorUI manejadorUI;
     public ManejadorDialogos manejadorDialogos;
-
+    Jugador jugador;
 
     public int misionIndex;
 
@@ -29,13 +29,14 @@ public class ManejadorMisiones : MonoBehaviour
         objetoEntregarMision.transform.position = Vector3.zero;
         objetoEntregarMision.SetActive(false);
         primeraVezRecogiendo = true;
+        jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
 
         titulo = "";
         descripcion = "";
 
 
         fsm = new StateMachine();
-        fsm.Initialize(new EsperandoPedidoState(this, fsm));
+        fsm.Initialize(new EsperandoPedidoState(this, fsm, jugador));
     }
 
     // Update is called once per frame

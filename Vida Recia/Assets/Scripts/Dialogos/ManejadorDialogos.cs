@@ -10,6 +10,7 @@ public class ManejadorDialogos : MonoBehaviour
     public List<DialogoClientes> dialogoClientes = new();
     public ManejadorUI manejadorUI;
     public ManejadorMisiones manejadorMisiones;
+    Jugador jugador;
     StateMachine fsm;
 
     public bool dialogoEstaActivo;
@@ -18,8 +19,9 @@ public class ManejadorDialogos : MonoBehaviour
     {
         CargarDialogos();
         dialogoEstaActivo = false;
+        jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
         fsm = new StateMachine();
-        fsm.Initialize(new AparecenDialogos(this, fsm));
+        fsm.Initialize(new AparecenDialogos(this, fsm, jugador));
     }
 
     private void Update()

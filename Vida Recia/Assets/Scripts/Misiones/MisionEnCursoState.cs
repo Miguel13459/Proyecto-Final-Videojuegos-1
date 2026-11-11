@@ -5,6 +5,14 @@ public class MisionEnCursoState : IState
 {
     private readonly ManejadorMisiones mision;
     private readonly StateMachine fsm;
+    private readonly Jugador jugador;
+    public MisionEnCursoState(ManejadorMisiones mision, StateMachine fsm, Jugador jugador)
+    {
+        this.mision = mision;
+        this.fsm = fsm;
+        this.jugador = jugador;
+    }
+
     public MisionEnCursoState(ManejadorMisiones mision, StateMachine fsm)
     {
         this.mision = mision;
@@ -16,7 +24,7 @@ public class MisionEnCursoState : IState
         mision.EsconderAJackson();
         mision.AparecerCLiente();
         mision.MandarAparecerVida();
-        Jugador.OnPlayerCollided += HandlePlayerCollision;
+        jugador.OnPlayerCollided += HandlePlayerCollision;
     }
 
     public void Execute()
@@ -26,7 +34,7 @@ public class MisionEnCursoState : IState
 
     public void Exit()
     {
-        Jugador.OnPlayerCollided -= HandlePlayerCollision;
+        jugador.OnPlayerCollided -= HandlePlayerCollision;
     }
 
     private void HandlePlayerCollision(GameObject objeto)

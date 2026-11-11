@@ -14,6 +14,7 @@ public class ManejadorResultados : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         imagen = pantallaNegra.GetComponent<Image>();
         pizzasEntregadas.text = ManejadorPartida.pizzasEntregadas.ToString();
         pizzasPerdidas.text = ManejadorPartida.pizzasPerdidas.ToString();

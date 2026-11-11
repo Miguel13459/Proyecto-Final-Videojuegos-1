@@ -4,9 +4,17 @@ public class AparecenDialogos : IState
 {
     private readonly ManejadorDialogos dialogos;
     private readonly StateMachine fsm;
+    private readonly Jugador jugador;
     private float contador;
     private bool tocoObjeto;
     private bool dialogoEstaActivo;
+    public AparecenDialogos(ManejadorDialogos dialogos, StateMachine fsm, Jugador jugador)
+    {
+        this.dialogos = dialogos;
+        this.fsm = fsm;
+        this.jugador = jugador;
+    }
+
     public AparecenDialogos(ManejadorDialogos dialogos, StateMachine fsm)
     {
         this.dialogos = dialogos;
@@ -17,7 +25,8 @@ public class AparecenDialogos : IState
         contador = 0f;
         tocoObjeto = false;
         dialogoEstaActivo = false;
-        Jugador.OnPlayerCollided += HacerAparecerDialogos;
+        Debug.Log("JUGADOOOOOOR: " + jugador);
+        jugador.OnPlayerCollided += HacerAparecerDialogos;
 
     }
     public void Execute()
@@ -35,7 +44,7 @@ public class AparecenDialogos : IState
     public void Exit()
     {
         contador = 0f;
-        Jugador.OnPlayerCollided -= HacerAparecerDialogos;
+        jugador.OnPlayerCollided -= HacerAparecerDialogos;
     }
 
     private void HacerAparecerDialogos(GameObject objeto)

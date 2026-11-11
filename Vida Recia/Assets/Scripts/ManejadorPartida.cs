@@ -24,7 +24,7 @@ public class ManejadorPartida : MonoBehaviour
         imagen = pantallaNegra.GetComponent<Image>();
         color = imagen.color;
         duracionPartida = 0;
-        limiteTiempoDePartida = 30f;
+        limiteTiempoDePartida = 300f;
 
         pizzasEntregadas = 0;
         pizzasPerdidas = 0;
@@ -34,7 +34,7 @@ public class ManejadorPartida : MonoBehaviour
     void Update()
     {
         duracionPartida += Time.deltaTime;
-        Debug.Log(duracionPartida);
+        //Debug.Log(duracionPartida);
         if (duracionPartida >= limiteTiempoDePartida)
         {
             
