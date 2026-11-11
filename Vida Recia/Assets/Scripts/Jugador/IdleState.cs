@@ -11,7 +11,6 @@ public class IdleState : IState
     }
     public void Enter()
     {
-        //jugador.animatorDiamante.SetInteger("Estado", 0);
         jugador.CambiarSonido(jugador.relentiSonido, true);
     }
 
@@ -29,7 +28,7 @@ public class IdleState : IState
             fsm.ChangeState(new RetrocederState(jugador, fsm));
             return;
         }
-        jugador.velocidadActual = Mathf.MoveTowards(jugador.velocidadActual, 0f, jugador.desaceleracionKmH * Time.fixedDeltaTime);
+        jugador.Idle();
         jugador.ActualizarAnimacion(0);
     }
 

@@ -29,12 +29,6 @@ public class DesacelerarState : IState
             return;
         }
 
-        jugador.velocidadActual = Mathf.MoveTowards(
-            jugador.velocidadActual,
-            0f,
-            jugador.desaceleracionKmH * Time.fixedDeltaTime
-        );
-
         if (jugador.velocidadActual <= 0.01f)
         {
             jugador.velocidadActual = 0f;
@@ -42,6 +36,7 @@ public class DesacelerarState : IState
             return;
         }
 
+        jugador.Desacelerar();
         jugador.Girar(1f, 20, 100);
         jugador.ActualizarAnimacion(1);
     }

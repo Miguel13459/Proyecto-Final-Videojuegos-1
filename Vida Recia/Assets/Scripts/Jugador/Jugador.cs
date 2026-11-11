@@ -137,27 +137,41 @@ public class Jugador : MonoBehaviour
         giro = playerInput.actions["Girar"].ReadValue<Vector2>();
     }
 
-    private void PerderPedido()
+    internal void Acelerar()
     {
-        Debug.Log("Perdiste el pedido");
+        velocidadActual += aceleracionKmH * Time.fixedDeltaTime;
+        velocidadActual = Mathf.Clamp(velocidadActual, 0f, velocidadMaxima);
     }
 
-    IEnumerator ActivarInmunidad()
+    internal void Retroceder()
     {
-        //esInmune = true;
-        float tiempoPasado = 0;
-        while (tiempoPasado < tiempoInmunidad)
-        {
-            modeloMoto.SetActive(!modeloMoto.activeSelf);
-            yield return new WaitForSeconds(0.1f);
-            tiempoPasado += 0.1f;
-        }
-
-        this.gameObject.SetActive(true);
-        esInmune = false;
+        float limiteVelocidadAtras = -8f;
+        velocidadActual -= desaceleracionKmH * Time.fixedDeltaTime;
+        if (velocidadActual < limiteVelocidadAtras) velocidadActual = limiteVelocidadAtras;
     }
 
-    
+    internal void Idle()
+    {
+        velocidadActual = Mathf.MoveTowards(velocidadActual, 0f, desaceleracionKmH * Time.fixedDeltaTime);
+    }
+
+    internal void Frenar()
+    {
+        velocidadActual = Mathf.MoveTowards(
+            velocidadActual,
+            0f,
+            desaceleracionKmH * 2f * Time.fixedDeltaTime
+        );
+    }
+
+    internal void Desacelerar()
+    {
+        velocidadActual = Mathf.MoveTowards(
+            velocidadActual,
+            0f,
+            desaceleracionKmH * Time.fixedDeltaTime
+        );
+    }
 
     public void Girar(float sensibilidadGiro, float limiteInclinacion, float velocidadInclinacion)
     {
@@ -214,6 +228,26 @@ public class Jugador : MonoBehaviour
         if (giro.x > 0.1f) animatorDiamante.SetInteger("Estado", 4);
         else if (giro.x < -0.1f) animatorDiamante.SetInteger("Estado", 5);
         else animatorDiamante.SetInteger("Estado", estadoNormal);
+    }
+
+    private void PerderPedido()
+    {
+        Debug.Log("Perdiste el pedido");
+    }
+
+    IEnumerator ActivarInmunidad()
+    {
+        //esInmune = true;
+        float tiempoPasado = 0;
+        while (tiempoPasado < tiempoInmunidad)
+        {
+            modeloMoto.SetActive(!modeloMoto.activeSelf);
+            yield return new WaitForSeconds(0.1f);
+            tiempoPasado += 0.1f;
+        }
+
+        this.gameObject.SetActive(true);
+        esInmune = false;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -274,4 +308,6 @@ public class Jugador : MonoBehaviour
     {
         OnPlayerCollided = null;
     }
+
+    
 }

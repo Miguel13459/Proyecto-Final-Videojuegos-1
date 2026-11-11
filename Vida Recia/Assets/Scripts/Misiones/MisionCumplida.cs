@@ -15,6 +15,7 @@ public class MisionCumplida : IState
     {
         mision.EsconderCliente();
         mision.MandarCerrarVida();
+        ManejadorPartida.pizzasEntregadas++;
         contador = 0;
     }
 

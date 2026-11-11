@@ -16,6 +16,7 @@ public class MisionFallida : IState
     {
         mision.EsconderCliente();
         mision.MandarCerrarVida();
+        ManejadorPartida.pizzasPerdidas++;
     }
 
     public void Execute()

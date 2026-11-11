@@ -34,8 +34,7 @@ public class AcelerarState : IState
             return;
         }
 
-        jugador.velocidadActual += jugador.aceleracionKmH * Time.fixedDeltaTime;
-        jugador.velocidadActual = Mathf.Clamp(jugador.velocidadActual, 0f, jugador.velocidadMaxima);
+        jugador.Acelerar();
         if (jugador.velocidadActual >= jugador.velocidadMaxima)
         {
             jugador.CambiarSonido(jugador.aceleracionConstanteSonido, true);

@@ -31,17 +31,7 @@ public class FrenarState : IState
             return;
         }
 
-        /*contador += Time.deltaTime;
-        if(contador > 2f)
-        {
-            jugador.CambiarSonido(jugador.relentiSonido, true);
-        }*/
-
-        jugador.velocidadActual = Mathf.MoveTowards(
-            jugador.velocidadActual,
-            0f,
-            jugador.desaceleracionKmH * 2f * Time.fixedDeltaTime
-        );
+        jugador.Frenar();
     }
 
     public void Exit()
