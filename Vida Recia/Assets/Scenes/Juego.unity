@@ -14400,6 +14400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ec38624b8f61544a6d1c9de5c2eb61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManejadorPartida
+  pantallaNegra: {fileID: 197105578}
 --- !u!1001 &1093338138
 PrefabInstance:
   m_ObjectHideFlags: 0
