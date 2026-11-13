@@ -104,7 +104,7 @@ public class Jugador : MonoBehaviour
         velocidadVertical = Vector3.zero;
         velocidadHorizontal = Vector3.zero;
         fuerzaSalto = 1.5f;
-        distanciaSensor = 0.6f;
+        distanciaSensor = 2f;
         puedeSaltar = true;
 
         PedidoPerdido = false;
@@ -202,12 +202,25 @@ public class Jugador : MonoBehaviour
     public void DetectarBanqueta()
     {
         RaycastHit hit;
+        int layerMask = -(1 << LayerMask.NameToLayer("Calles"));
         //subir banquetas
         Debug.DrawRay(sensorFrente.transform.position, this.transform.TransformDirection(Vector3.forward) * distanciaSensor, Color.red);
-        if (Physics.Raycast(sensorFrente.transform.position, this.transform.TransformDirection(Vector3.forward),out hit, distanciaSensor))
+        if (Physics.Raycast(sensorFrente.transform.position, this.transform.TransformDirection(Vector3.forward),out hit, distanciaSensor, layerMask))
         {
-            Debug.Log("Objeto detectado: " + hit.collider.gameObject.name);
-            Debug.Log("Etiqueta detectada: " + hit.collider.gameObject.tag);
+            Debug.Log(hit.collider.name);
+            if (hit.collider.gameObject.CompareTag("Calles"))
+            {
+                Debug.Log("BanquetaDetectada");
+                velocidadVertical.y = fuerzaSalto;
+                rb.linearVelocity = velocidadVertical;
+                puedeSaltar = false;
+                Debug.Log("Puede saltar?" + puedeSaltar);
+            }
+        }
+
+        if (Physics.Raycast(sensorFrente.transform.position + Vector3.up * 0.2f, this.transform.TransformDirection(Vector3.forward), out hit, distanciaSensor, layerMask))
+        {
+            Debug.Log(hit.collider.name);
             if (hit.collider.gameObject.CompareTag("Calles"))
             {
                 Debug.Log("BanquetaDetectada");
