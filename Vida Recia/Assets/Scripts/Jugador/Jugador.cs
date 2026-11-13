@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Jugador : MonoBehaviour
 {
-    public event Action<GameObject> OnPlayerCollided;
+    //public UnityEvent OnRecogerPizza;
+    //public UnityEvent OnEntregarPizza;
+    public event Action<GameObject> OnMisionColisionar;
 
     [Header("Referencias")]
     public GameObject modeloMoto;
@@ -60,9 +63,15 @@ public class Jugador : MonoBehaviour
     public float distanciaSensor;
     private bool puedeSaltar;
 
+    [Header("Manejadores")]
+    public ManejadorUI manejadorUI;
+    public ManejadorMisiones manejadorMisiones;
+    public ManejadorDialogos manejadorDialogos;
 
     private StateMachine fsm;
     public bool arranqueEnCurso;
+
+    public bool PedidoPerdido;
 
     void Awake()
     {
@@ -98,7 +107,7 @@ public class Jugador : MonoBehaviour
         distanciaSensor = 0.6f;
         puedeSaltar = true;
 
-        
+        PedidoPerdido = false;
         //arranqueEnCurso = true;
         fsm = new StateMachine();
         fsm.Initialize(new IdleState(this, fsm));
@@ -232,7 +241,7 @@ public class Jugador : MonoBehaviour
 
     private void PerderPedido()
     {
-        Debug.Log("Perdiste el pedido");
+        PedidoPerdido = true;
     }
 
     
@@ -253,47 +262,49 @@ public class Jugador : MonoBehaviour
         }
         if (other.gameObject.CompareTag("RecogerMision"))
         {
-            OnPlayerCollided?.Invoke(other.gameObject);
+            //OnRecogerPizza?.Invoke();
+            OnMisionColisionar?.Invoke(other.gameObject);
         }
         if (other.gameObject.CompareTag("EntregarMision"))
         {
-            OnPlayerCollided?.Invoke(other.gameObject);
+            //OnEntregarPizza?.Invoke();
+            OnMisionColisionar?.Invoke(other.gameObject);
         }
     }
 
     private void PerderVidaPizza()
     {
-        if (esInmune)
+        if (esInmune) return;
+
+        vidaPizza--;
+
+        if (vidaPizza <= 0)
         {
+            vidaPizza = 0;
+            PerderPedido();
             return;
         }
-        else
-        {
-            if (vidaPizza <= 0)
-            {
-                PerderPedido();
-            }
-            else
-            {
-                StartCoroutine(ActivarInmunidad());
-            }
-        }
+
+        StartCoroutine(ActivarInmunidad());
     }
 
     IEnumerator ActivarInmunidad()
     {
         esInmune = true;
-        float tiempoPasado = 0;
+
+        float tiempoPasado = 0f;
+
         while (tiempoPasado < tiempoInmunidad)
         {
             modeloMoto.SetActive(!modeloMoto.activeSelf);
+
             yield return new WaitForSeconds(0.1f);
-            tiempoPasado += Time.deltaTime;
+
+            tiempoPasado += 0.1f;
         }
 
-        this.gameObject.SetActive(true);
-        Debug.Log("Tiempo inmunidad: " + tiempoInmunidad);
-        if(tiempoPasado >= tiempoInmunidad) esInmune = false;
+        modeloMoto.SetActive(true);
+        esInmune = false;
     }
 
     private void OnCollisionStay(Collision collision)

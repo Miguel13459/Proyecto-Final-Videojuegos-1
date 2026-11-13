@@ -26,7 +26,7 @@ public class AparecenDialogos : IState
         tocoObjeto = false;
         dialogoEstaActivo = false;
         Debug.Log("JUGADOOOOOOR: " + jugador);
-        jugador.OnPlayerCollided += HacerAparecerDialogos;
+        jugador.OnMisionColisionar += HacerAparecerDialogos;
 
     }
     public void Execute()
@@ -36,7 +36,7 @@ public class AparecenDialogos : IState
             contador += Time.deltaTime;
             if (contador > 6.5f)
             {
-                fsm.ChangeState(new DesaparecerDialogos(dialogos, fsm));
+                fsm.ChangeState(new DesaparecerDialogos(dialogos, fsm, jugador));
             }
         }
     }
@@ -44,7 +44,7 @@ public class AparecenDialogos : IState
     public void Exit()
     {
         contador = 0f;
-        jugador.OnPlayerCollided -= HacerAparecerDialogos;
+        jugador.OnMisionColisionar -= HacerAparecerDialogos;
     }
 
     private void HacerAparecerDialogos(GameObject objeto)

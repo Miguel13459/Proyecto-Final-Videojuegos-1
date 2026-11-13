@@ -60,7 +60,7 @@ public class ManejadorUI : MonoBehaviour
     {
         vidaActual = scriptJugador.vidaPizza;
         //Debug.Log(vidaActual);
-        rellenoBarraVida.fillAmount = vidaActual / numVidas;
+        rellenoBarraVida.fillAmount = numVidas > 0 ? (float)vidaActual / numVidas : 0f;
         //Debug.Log(vidaActual / numVidas);
 
         velocidad = Mathf.FloorToInt(scriptJugador.velocidadActual / 2);
@@ -71,28 +71,6 @@ public class ManejadorUI : MonoBehaviour
 
     public void MostrarDialogoJackson(DialogueData dialogoJackson, string lugar)
     {
-        Debug.Log("===== DIAGNÓSTICO DE DIÁLOGOS =====");
-
-        if (this == null)
-        {
-            Debug.LogError("Se está intentando utilizar un ManejadorUI destruido.");
-            return;
-        }
-
-        Debug.Log("ManejadorUI: " + this.name);
-        Debug.Log("¿ManejadorUI sigue activo?: " + (this != null));
-
-        Debug.Log("¿Dialogos es null?: " + (dialogos == null));
-
-        if (dialogos == null)
-        {
-            Debug.LogError("¡LA REFERENCIA DIALOGOS ESTÁ DESTRUIDA!");
-            return;
-        }
-
-        Debug.Log("Objeto Dialogos: " + dialogos.name);
-        Debug.Log("ID de Dialogos: " + dialogos.GetEntityId());
-
         dialogos.SetActive(true);
 
         personaje.text = "Jefe el loco Jackson";
@@ -153,10 +131,10 @@ public class ManejadorUI : MonoBehaviour
 
     public IEnumerator MostrarStatusCorrutina(string titulo, string descripcion, ManejadorDialogos manejadorDialogos)
     {
-        Debug.Log("Entra a la corrutina");
+        //Debug.Log("Entra a la corrutina");
         while (manejadorDialogos.dialogoEstaActivo)
         {
-            Debug.Log("Entra al while");
+            //Debug.Log("Entra al while");
             yield return null;
         }
         yield return new WaitForSeconds(0.3f);

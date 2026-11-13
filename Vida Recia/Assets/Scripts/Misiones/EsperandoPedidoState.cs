@@ -24,7 +24,7 @@ public class EsperandoPedidoState : IState
     {
         Debug.Log("Entrando a EsperandoPedidoState");
         mision.AparecerAJackson();
-        jugador.OnPlayerCollided += CambiarAMisionEnCurso;
+        jugador.OnMisionColisionar += CambiarAMisionEnCurso;
     }
 
     public void Execute()
@@ -35,13 +35,14 @@ public class EsperandoPedidoState : IState
 
     public void Exit()
     {
-        jugador.OnPlayerCollided -= CambiarAMisionEnCurso;
+        jugador.OnMisionColisionar -= CambiarAMisionEnCurso;
     }
 
-    private void CambiarAMisionEnCurso(GameObject objeto)
+    public void CambiarAMisionEnCurso(GameObject objeto)
     {
-        //Debug.Log("jugador choco contra: " + objeto.name);
-
-        fsm.ChangeState(new MisionEnCursoState(mision, fsm));
+        if (objeto.CompareTag("RecogerMision"))
+        {
+            fsm.ChangeState(new MisionEnCursoState(mision, fsm, jugador));
+        }
     }
 }

@@ -24,7 +24,7 @@ public class MisionEnCursoState : IState
         mision.EsconderAJackson();
         mision.AparecerCLiente();
         mision.MandarAparecerVida();
-        jugador.OnPlayerCollided += HandlePlayerCollision;
+        jugador.OnMisionColisionar += CambiarAMisionCumplida;
     }
 
     public void Execute()
@@ -34,12 +34,14 @@ public class MisionEnCursoState : IState
 
     public void Exit()
     {
-        jugador.OnPlayerCollided -= HandlePlayerCollision;
+        jugador.OnMisionColisionar -= CambiarAMisionCumplida;
     }
 
-    private void HandlePlayerCollision(GameObject objeto)
+    public void CambiarAMisionCumplida(GameObject objeto)
     {
-        Debug.Log("jugador choco contra: " + objeto.name);
-        fsm.ChangeState(new MisionCumplida(mision, fsm));
+        if (objeto.CompareTag("EntregarMision"))
+        {
+            fsm.ChangeState(new MisionCumplida(mision, fsm, jugador));
+        }
     }
 }

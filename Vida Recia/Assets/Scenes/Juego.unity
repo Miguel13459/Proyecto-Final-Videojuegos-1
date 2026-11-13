@@ -5025,6 +5025,9 @@ MonoBehaviour:
   sensorAtras: {fileID: 538358737}
   fuerzaSalto: 0
   distanciaSensor: 0
+  manejadorUI: {fileID: 0}
+  manejadorMisiones: {fileID: 0}
+  manejadorDialogos: {fileID: 0}
   arranqueEnCurso: 0
 --- !u!54 &313357448
 Rigidbody:

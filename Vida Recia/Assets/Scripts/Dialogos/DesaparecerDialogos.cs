@@ -22,7 +22,7 @@ public class DesaparecerDialogos : IState
     {
         dialogoEstaActivo = false;
         dialogos.MandarCerrarDialogos(dialogoEstaActivo);
-        fsm.ChangeState(new AparecenDialogos(dialogos, fsm));
+        fsm.ChangeState(new AparecenDialogos(dialogos, fsm, jugador));
     }
 
     public void Execute()
