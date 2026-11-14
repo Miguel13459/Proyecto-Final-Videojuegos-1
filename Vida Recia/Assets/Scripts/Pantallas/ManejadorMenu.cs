@@ -24,4 +24,9 @@ public class ManejadorMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void MostrarCreditos()
+    {
+
+    }
 }

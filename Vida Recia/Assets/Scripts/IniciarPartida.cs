@@ -20,6 +20,8 @@ public class IniciarPartida : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         color = imagenPantalla.color;
         color.a -= Time.deltaTime;
         if (color.a <= 0) color.a = 0;

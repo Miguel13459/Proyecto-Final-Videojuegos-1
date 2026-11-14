@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Jugador : MonoBehaviour
 {
-    //public UnityEvent OnRecogerPizza;
+    public UnityEvent OnPausar;
     //public UnityEvent OnEntregarPizza;
     public event Action<GameObject> OnMisionColisionar;
 
@@ -20,6 +20,7 @@ public class Jugador : MonoBehaviour
     [Header("Inputs")]
     public float acelerar;
     public Vector2 giro;
+    public bool pausa;
 
     [Header("Velocidades")]
     public float velocidadActual;
@@ -117,6 +118,12 @@ public class Jugador : MonoBehaviour
     void Update()
     {
         LeerControles();
+        if (pausa) Pausar();
+    }
+
+    private void Pausar()
+    {
+        OnPausar?.Invoke();
     }
 
     void FixedUpdate()
@@ -144,6 +151,7 @@ public class Jugador : MonoBehaviour
     {
         acelerar = playerInput.actions["Acelerar"].ReadValue<float>();
         giro = playerInput.actions["Girar"].ReadValue<Vector2>();
+        pausa = playerInput.actions["Pausa"].WasPressedThisFrame();
     }
 
     internal void Acelerar()
@@ -257,15 +265,6 @@ public class Jugador : MonoBehaviour
         PedidoPerdido = true;
     }
 
-    
-
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (esInmune) return;
-        //esInmune = true;
-        if (collision == null) return;
-    }*/
-
     private void OnTriggerEnter(Collider other)
     {
         if (other == null) return;
@@ -328,12 +327,7 @@ public class Jugador : MonoBehaviour
             Debug.Log("Puede saltar?" + puedeSaltar);
         }
     }
-    /*
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void ReiniciarEventos()
-    {
-        OnPlayerCollided = null;
-    }*/
+    
 
     
 }
