@@ -21,6 +21,7 @@ public class MisionEnCursoState : IState
 
     public void Enter()
     {
+
         mision.EsconderAJackson();
         mision.AparecerCLiente();
         mision.MandarAparecerVida();
@@ -30,6 +31,7 @@ public class MisionEnCursoState : IState
     public void Execute()
     {
         mision.StatusMision("enCurso");
+        if(jugador.PedidoPerdido) fsm.ChangeState(new MisionFallida(mision, fsm, jugador));
     }
 
     public void Exit()

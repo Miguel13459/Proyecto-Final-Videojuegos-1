@@ -40,13 +40,7 @@ public class ManejadorDialogos : MonoBehaviour
         DialogosArchivoData datos = JsonUtility.FromJson<DialogosArchivoData>(dialogosArchivo.text);
 
         if (datos.jefeJackson != null) dialogosJackson = datos.jefeJackson;
-
         if (datos.clientes != null) dialogoClientes = datos.clientes;
-
-        Debug.Log(
-            $"Diálogos de Jackson: {dialogosJackson.Count}\n" +
-            $"Diálogos de clientes: {dialogoClientes.Count}"
-        );
 
     }
 

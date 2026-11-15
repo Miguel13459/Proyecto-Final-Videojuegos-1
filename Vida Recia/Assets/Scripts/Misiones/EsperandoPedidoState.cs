@@ -22,7 +22,9 @@ public class EsperandoPedidoState : IState
 
     public void Enter()
     {
-        Debug.Log("Entrando a EsperandoPedidoState");
+        //Debug.Log("Entrando a EsperandoPedidoState");
+        jugador.vidaPizza = 3;
+        jugador.PedidoPerdido = false;
         mision.AparecerAJackson();
         jugador.OnMisionColisionar += CambiarAMisionEnCurso;
     }

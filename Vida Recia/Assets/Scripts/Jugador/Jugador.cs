@@ -120,12 +120,6 @@ public class Jugador : MonoBehaviour
         LeerControles();
         if (pausa) Pausar();
     }
-
-    private void Pausar()
-    {
-        OnPausar?.Invoke();
-    }
-
     void FixedUpdate()
     {
         fsm.Update();
@@ -297,10 +291,10 @@ public class Jugador : MonoBehaviour
             return;
         }
 
-        StartCoroutine(ActivarInmunidad());
+        StartCoroutine(ActivarAnimacion());
     }
 
-    IEnumerator ActivarInmunidad()
+    IEnumerator ActivarAnimacion()
     {
         esInmune = true;
 
@@ -327,7 +321,10 @@ public class Jugador : MonoBehaviour
             Debug.Log("Puede saltar?" + puedeSaltar);
         }
     }
-    
 
-    
+    private void Pausar()
+    {
+        OnPausar?.Invoke();
+    }
+
 }
