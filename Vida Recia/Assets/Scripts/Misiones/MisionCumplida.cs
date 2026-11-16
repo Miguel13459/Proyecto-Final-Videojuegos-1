@@ -6,11 +6,13 @@ public class MisionCumplida : IState
     private readonly StateMachine fsm;
     private float contador;
     private Jugador jugador;
+    private bool estaEnEspera;
 
     public MisionCumplida(ManejadorMisiones mision, StateMachine fsm)
     {
         this.mision = mision;
         this.fsm = fsm;
+        estaEnEspera = true;
     }
 
     public MisionCumplida(ManejadorMisiones mision, StateMachine fsm, Jugador jugador)
@@ -18,6 +20,7 @@ public class MisionCumplida : IState
         this.mision = mision;
         this.fsm = fsm;
         this.jugador = jugador;
+        estaEnEspera = true;
     }
 
     public void Enter()
@@ -30,6 +33,7 @@ public class MisionCumplida : IState
 
     public void Execute()
     {
+        mision.AvisarSiEstaEnEspera(estaEnEspera);
         mision.StatusMision("cumplida");
         contador += Time.deltaTime;
         if (contador >= 10) fsm.ChangeState(new EsperandoPedidoState(mision, fsm, jugador));

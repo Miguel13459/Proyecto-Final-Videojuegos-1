@@ -2,7 +2,7 @@ using UnityEngine;
 //gestiona el estado activo y permite cambiar de uno a otro:
 public class StateMachine
 {
-    private IState currentState;
+    public IState currentState { get; private set; }
 
     public void Initialize(IState startingState)
     {

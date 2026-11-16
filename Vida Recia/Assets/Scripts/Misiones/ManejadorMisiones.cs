@@ -145,4 +145,9 @@ public class ManejadorMisiones : MonoBehaviour
     {
         manejadorUI.CerrarVidaPizza();
     }
+
+    internal void AvisarSiEstaEnEspera(bool estaEnEspera)
+    {
+        jugador.estaEnEspera = estaEnEspera;
+    }
 }

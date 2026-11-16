@@ -73,6 +73,7 @@ public class Jugador : MonoBehaviour
     public bool arranqueEnCurso;
 
     public bool PedidoPerdido;
+    internal bool estaEnEspera;
 
     void Awake()
     {
@@ -264,6 +265,11 @@ public class Jugador : MonoBehaviour
         if (other == null) return;
         if (other.gameObject.CompareTag("Obstaculo"))
         {
+            if (estaEnEspera)
+            {
+                Debug.Log("Estas en estado esperando no puedes recibir golpes"); 
+                return;
+            }
             PerderVidaPizza();
         }
         if (other.gameObject.CompareTag("RecogerMision"))
