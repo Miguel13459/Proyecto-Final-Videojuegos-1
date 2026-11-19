@@ -6,98 +6,185 @@ public class ControlPantallaCarga : MonoBehaviour
 {
     [Header("Elementos de interfaz")]
     [SerializeField] private CanvasGroup grupoTransicion;
+    [SerializeField] private CanvasGroup grupoLogo;
     [SerializeField] private Animator animadorFade;
     [SerializeField] private GameObject logoCarga;
     [SerializeField] private Animator animadorLogo;
 
     [Header("Configuracion")]
     [SerializeField] private string escenaDestino = "Juego";
-    [SerializeField] private float duracionFadeOut = 0.8f;
+
+    [Header("Duraciones")]
+    [SerializeField] private float duracionFadeOut = 2f;
+    [SerializeField] private float esperaNegro = 0.15f;
+    [SerializeField] private float aparicionLogo = 0.3f;
     [SerializeField] private float tiempoCarga = 5f;
-    [SerializeField] private float duracionFadeIn = 0.8f;
+    [SerializeField] private float desaparicionLogo = 0.35f;
+    [SerializeField] private float duracionFadeIn = 2f;
 
     private bool cargando = false;
 
     private void Awake()
     {
-        // Mantener esta interfaz durante el cambio de escena.
         DontDestroyOnLoad(gameObject);
 
         grupoTransicion.alpha = 0f;
         grupoTransicion.blocksRaycasts = false;
         grupoTransicion.interactable = false;
 
+        grupoLogo.alpha = 0f;
         logoCarga.SetActive(false);
 
-        // Las animaciones continuan si Time.timeScale es 0.
-        animadorFade.updateMode = AnimatorUpdateMode.UnscaledTime;
+        animadorFade.updateMode =
+            AnimatorUpdateMode.UnscaledTime;
 
         if (animadorLogo != null)
+        {
             animadorLogo.updateMode = AnimatorUpdateMode.UnscaledTime;
+        }
     }
 
-    // Este metodo se asigna al boton Nuevo Juego.
     public void IniciarPartida()
     {
         if (!cargando)
+        {
             StartCoroutine(SecuenciaCarga());
+        }
     }
 
     private IEnumerator SecuenciaCarga()
     {
         cargando = true;
 
-        // Bloquear los clics durante la transicion.
         grupoTransicion.blocksRaycasts = true;
 
-        // PASO 1: Oscurecer el menu.
+        // OCULTAR EL LOGO
+        // Durante el FadeOut solo aparece el fondo negro.
+        grupoLogo.alpha = 0f;
         logoCarga.SetActive(false);
+
+        // FADEOUT DEL MENU
         animadorFade.Play("FadeOut", 0, 0f);
 
-        yield return new WaitForSecondsRealtime(duracionFadeOut);
+        yield return new WaitForSecondsRealtime(
+            duracionFadeOut
+        );
 
-        // PASO 2: Mostrar el logo animado.
+        // Esperar a que termine de actualizarse el Animator.
+        yield return null;
+
+        // El clip FadeOut termina en Alpha = 1.
+        // El fondo este totalmente negro.
+        grupoTransicion.alpha = 1f;
+
+        // PAUSA CON FONDO NEGRO
+        yield return new WaitForSecondsRealtime(
+            esperaNegro
+        );
+
+        // MOSTRAR EL LOGO SUAVEMENTE
         logoCarga.SetActive(true);
+        grupoLogo.alpha = 0f;
 
-        // PASO 3: Cargar la nueva escena sin mostrarla aun.
+        yield return StartCoroutine(
+            AnimarAlpha(grupoLogo, 0f, 1f, aparicionLogo)
+        );
+
+        // INICIAR CARGA DE LA ESCENA
         AsyncOperation carga =
             SceneManager.LoadSceneAsync(escenaDestino);
 
         if (carga == null)
         {
-            Debug.LogError("No se pudo cargar la escena: " + escenaDestino);
+            Debug.LogError(
+                "No se pudo cargar la escena: " + escenaDestino
+            );
             yield break;
         }
 
         carga.allowSceneActivation = false;
 
-        // Mostrar la pantalla de carga al menos 5 segundos.
+        // Mantener el logo visible durante 5 segundos.
         yield return new WaitForSecondsRealtime(tiempoCarga);
 
-        // Esperar a que Unity termine de preparar la escena.
+        // Esperar a que Juego este listo.
         while (carga.progress < 0.9f)
+        {
             yield return null;
+        }
 
-        // PASO 4: Activar Juego.
+        // DESAPARECER EL LOGO
+        // El fondo sigue completamente negro.
+        yield return StartCoroutine(
+            AnimarAlpha(
+                grupoLogo,
+                1f,
+                0f,
+                desaparicionLogo
+            )
+        );
+
+        logoCarga.SetActive(false);
+
+        // ACTIVAR LA ESCENA JUEGO
         carga.allowSceneActivation = true;
 
         while (!carga.isDone)
+        {
             yield return null;
+        }
 
-        // Dar un fotograma para renderizar la nueva escena.
         yield return null;
 
-        // PASO 5: Desvanecer el negro y el logo.
+        // FADEIN PARA REVELAR LA PARTIDA
         animadorFade.Play("FadeIn", 0, 0f);
 
-        yield return new WaitForSecondsRealtime(duracionFadeIn);
+        yield return new WaitForSecondsRealtime(
+            duracionFadeIn
+        );
 
         grupoTransicion.blocksRaycasts = false;
-        logoCarga.SetActive(false);
 
         cargando = false;
 
-        // Eliminar la interfaz temporal.
         Destroy(gameObject);
+    }
+
+    // Funcion para animar la transparencia del logo.
+    private IEnumerator AnimarAlpha(
+        CanvasGroup grupo,
+        float inicio,
+        float final,
+        float duracion
+    )
+    {
+        if (duracion <= 0f)
+        {
+            grupo.alpha = final;
+            yield break;
+        }
+
+        float tiempo = 0f;
+
+        grupo.alpha = inicio;
+
+        while (tiempo < duracion)
+        {
+            tiempo += Time.unscaledDeltaTime;
+
+            float porcentaje = Mathf.Clamp01(
+                tiempo / duracion
+            );
+
+            grupo.alpha = Mathf.Lerp(
+                inicio,
+                final,
+                porcentaje
+            );
+
+            yield return null;
+        }
+
+        grupo.alpha = final;
     }
 }

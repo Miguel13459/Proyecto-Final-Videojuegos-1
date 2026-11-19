@@ -1495,6 +1495,7 @@ GameObject:
   - component: {fileID: 340139315}
   - component: {fileID: 340139314}
   - component: {fileID: 340139316}
+  - component: {fileID: 340139317}
   m_Layer: 5
   m_Name: LogoCarga
   m_TagString: Untagged
@@ -1581,6 +1582,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &340139317
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340139312}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &347653162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3270,13 +3283,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlPantallaCarga
   grupoTransicion: {fileID: 2060924272}
+  grupoLogo: {fileID: 340139317}
   animadorFade: {fileID: 2060924271}
   logoCarga: {fileID: 340139312}
   animadorLogo: {fileID: 340139316}
   escenaDestino: Juego
-  duracionFadeOut: 0.8
+  duracionFadeOut: 2
+  esperaNegro: 0.15
+  aparicionLogo: 0.3
   tiempoCarga: 5
-  duracionFadeIn: 0.8
+  desaparicionLogo: 0.35
+  duracionFadeIn: 2
 --- !u!1 &1412901263
 GameObject:
   m_ObjectHideFlags: 0
