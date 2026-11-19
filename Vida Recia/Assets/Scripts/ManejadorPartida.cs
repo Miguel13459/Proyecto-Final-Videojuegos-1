@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,7 +18,12 @@ public class ManejadorPartida : MonoBehaviour
     public GameObject pantallaNegra;
     Image imagen;
     Color color;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public GameObject panelPausa;
+    private bool isPausado = false;
+    public EventSystem eventSystem;
+    
+
     void Start()
     {
         jugadorGO = GameObject.FindGameObjectWithTag("Player");
@@ -28,9 +35,9 @@ public class ManejadorPartida : MonoBehaviour
 
         pizzasEntregadas = 0;
         pizzasPerdidas = 0;
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
         duracionPartida += Time.deltaTime;
@@ -49,6 +56,19 @@ public class ManejadorPartida : MonoBehaviour
             }
             
         } 
+
+    }
+
+    public void OnPausa()
+    {
+        if (isPausado)
+        {
+            ReaunudarJuego();
+        }
+        else
+        {
+            PausarJuego();
+        }
     }
 
     void TerminarPartida()
@@ -63,4 +83,33 @@ public class ManejadorPartida : MonoBehaviour
         SceneManager.LoadScene("PartidaTerminada");
     }
 
+    public void PausarJuego()
+    {
+        panelPausa.SetActive(true);
+        Time.timeScale = 0f;
+        isPausado = true;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void ReaunudarJuego()
+    {
+        panelPausa.SetActive(false);
+        Time.timeScale = 1f;
+        isPausado = false;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void Ajustes()
+    {
+        Debug.Log("No hay presupuesto para desarrollar esta parte");
+    }
+
+    public void salirAlMenu()
+    {
+        SceneManager.LoadScene("MenuInicio");
+    }
 }

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Jugador : MonoBehaviour
 {
-    //public UnityEvent OnRecogerPizza;
+    public UnityEvent OnPausar;
     //public UnityEvent OnEntregarPizza;
     public event Action<GameObject> OnMisionColisionar;
 
@@ -20,6 +20,7 @@ public class Jugador : MonoBehaviour
     [Header("Inputs")]
     public float acelerar;
     public Vector2 giro;
+    public bool pausa;
 
     [Header("Velocidades")]
     public float velocidadActual;
@@ -72,6 +73,7 @@ public class Jugador : MonoBehaviour
     public bool arranqueEnCurso;
 
     public bool PedidoPerdido;
+    internal bool estaEnEspera;
 
     void Awake()
     {
@@ -104,7 +106,7 @@ public class Jugador : MonoBehaviour
         velocidadVertical = Vector3.zero;
         velocidadHorizontal = Vector3.zero;
         fuerzaSalto = 1.5f;
-        distanciaSensor = 0.6f;
+        distanciaSensor = 2f;
         puedeSaltar = true;
 
         PedidoPerdido = false;
@@ -117,8 +119,8 @@ public class Jugador : MonoBehaviour
     void Update()
     {
         LeerControles();
+        if (pausa) Pausar();
     }
-
     void FixedUpdate()
     {
         fsm.Update();
@@ -144,6 +146,7 @@ public class Jugador : MonoBehaviour
     {
         acelerar = playerInput.actions["Acelerar"].ReadValue<float>();
         giro = playerInput.actions["Girar"].ReadValue<Vector2>();
+        pausa = playerInput.actions["Pausa"].WasPressedThisFrame();
     }
 
     internal void Acelerar()
@@ -202,12 +205,25 @@ public class Jugador : MonoBehaviour
     public void DetectarBanqueta()
     {
         RaycastHit hit;
+        int layerMask = -(1 << LayerMask.NameToLayer("Calles"));
         //subir banquetas
         Debug.DrawRay(sensorFrente.transform.position, this.transform.TransformDirection(Vector3.forward) * distanciaSensor, Color.red);
-        if (Physics.Raycast(sensorFrente.transform.position, this.transform.TransformDirection(Vector3.forward),out hit, distanciaSensor))
+        if (Physics.Raycast(sensorFrente.transform.position, this.transform.TransformDirection(Vector3.forward),out hit, distanciaSensor, layerMask))
         {
-            Debug.Log("Objeto detectado: " + hit.collider.gameObject.name);
-            Debug.Log("Etiqueta detectada: " + hit.collider.gameObject.tag);
+            Debug.Log(hit.collider.name);
+            if (hit.collider.gameObject.CompareTag("Calles"))
+            {
+                Debug.Log("BanquetaDetectada");
+                velocidadVertical.y = fuerzaSalto;
+                rb.linearVelocity = velocidadVertical;
+                puedeSaltar = false;
+                Debug.Log("Puede saltar?" + puedeSaltar);
+            }
+        }
+
+        if (Physics.Raycast(sensorFrente.transform.position + Vector3.up * 0.2f, this.transform.TransformDirection(Vector3.forward), out hit, distanciaSensor, layerMask))
+        {
+            Debug.Log(hit.collider.name);
             if (hit.collider.gameObject.CompareTag("Calles"))
             {
                 Debug.Log("BanquetaDetectada");
@@ -244,20 +260,16 @@ public class Jugador : MonoBehaviour
         PedidoPerdido = true;
     }
 
-    
-
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (esInmune) return;
-        //esInmune = true;
-        if (collision == null) return;
-    }*/
-
     private void OnTriggerEnter(Collider other)
     {
         if (other == null) return;
         if (other.gameObject.CompareTag("Obstaculo"))
         {
+            if (estaEnEspera)
+            {
+                Debug.Log("Estas en estado esperando no puedes recibir golpes"); 
+                return;
+            }
             PerderVidaPizza();
         }
         if (other.gameObject.CompareTag("RecogerMision"))
@@ -285,10 +297,10 @@ public class Jugador : MonoBehaviour
             return;
         }
 
-        StartCoroutine(ActivarInmunidad());
+        StartCoroutine(ActivarAnimacion());
     }
 
-    IEnumerator ActivarInmunidad()
+    IEnumerator ActivarAnimacion()
     {
         esInmune = true;
 
@@ -315,12 +327,10 @@ public class Jugador : MonoBehaviour
             Debug.Log("Puede saltar?" + puedeSaltar);
         }
     }
-    /*
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void ReiniciarEventos()
-    {
-        OnPlayerCollided = null;
-    }*/
 
-    
+    private void Pausar()
+    {
+        OnPausar?.Invoke();
+    }
+
 }

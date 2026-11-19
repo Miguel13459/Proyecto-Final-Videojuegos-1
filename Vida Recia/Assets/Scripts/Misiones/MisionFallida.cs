@@ -6,6 +6,7 @@ public class MisionFallida : IState
     private readonly StateMachine fsm;
     private readonly Jugador jugador;
     private float contador;
+    private readonly bool estaEnEspera;
 
     public MisionFallida(ManejadorMisiones mision, StateMachine fsm, Jugador jugador)
     {
@@ -13,6 +14,7 @@ public class MisionFallida : IState
         this.fsm = fsm;
         this.jugador = jugador;
         contador = 0;
+        estaEnEspera = true;
     }
 
     public MisionFallida(ManejadorMisiones mision, StateMachine fsm)
@@ -20,6 +22,7 @@ public class MisionFallida : IState
         this.mision = mision;
         this.fsm = fsm;
         contador = 0;
+        estaEnEspera = true;
     }
 
     public void Enter()
@@ -31,6 +34,7 @@ public class MisionFallida : IState
 
     public void Execute()
     {
+        mision.AvisarSiEstaEnEspera(estaEnEspera);
         if (jugador.PedidoPerdido)
         {
             mision.StatusMision("fallida");
