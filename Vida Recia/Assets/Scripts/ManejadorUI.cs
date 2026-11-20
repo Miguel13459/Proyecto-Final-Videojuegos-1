@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ManejadorUI : MonoBehaviour
 {
+    public Image pantallaNegroComenzar;
+
     [Header("Referencias jugador")]
     GameObject jugador;
     Jugador scriptJugador;
@@ -34,7 +36,9 @@ public class ManejadorUI : MonoBehaviour
     public TMP_Text tituloStatus;
     public TMP_Text descripcionStatus;
 
-    public Image pantallaNegroComenzar;
+    [Header("Temporizador")]
+    public TMP_Text textoSegundos;
+    public TMP_Text textoMinutos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -132,6 +136,18 @@ public class ManejadorUI : MonoBehaviour
     public void MostrarStatus(string titulo, string descripcion, ManejadorDialogos manejadorDialogos)
     {
         MostrarStatus(titulo, descripcion);
+    }
+
+    public void ActualizadTemporizador(float duracionPartida)
+    {
+        int tiempo = Mathf.CeilToInt(duracionPartida);
+
+        int minutos = (tiempo % 3600) / 60;
+        int segundos = tiempo % 60;
+
+        textoMinutos.text = minutos.ToString("00");
+        textoSegundos.text = segundos.ToString("00");
+
     }
 
     /*public IEnumerator MostrarStatusCorrutina(string titulo, string descripcion, ManejadorDialogos manejadorDialogos)

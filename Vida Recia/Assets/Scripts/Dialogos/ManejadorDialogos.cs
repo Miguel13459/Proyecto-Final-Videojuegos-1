@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
 
 public class ManejadorDialogos : MonoBehaviour
@@ -12,6 +13,7 @@ public class ManejadorDialogos : MonoBehaviour
     public ManejadorMisiones manejadorMisiones;
     Jugador jugador;
     StateMachine fsm;
+    //public Image Jackson;
 
     public bool dialogoEstaActivo;
 

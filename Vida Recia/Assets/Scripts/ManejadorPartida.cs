@@ -9,6 +9,7 @@ public class ManejadorPartida : MonoBehaviour
     GameObject jugadorGO;
     Jugador jugadorScript;
     CamaraOrbital camaraOrbital;
+    public ManejadorUI manejadorUI;
     float duracionPartida;
     float limiteTiempoDePartida;
 
@@ -32,8 +33,7 @@ public class ManejadorPartida : MonoBehaviour
         camaraOrbital = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamaraOrbital>();
         imagen = pantallaNegra.GetComponent<Image>();
         color = imagen.color;
-        duracionPartida = 0;
-        limiteTiempoDePartida = 300f;
+        duracionPartida = 300f;
 
         pizzasEntregadas = 0;
         pizzasPerdidas = 0;
@@ -42,22 +42,30 @@ public class ManejadorPartida : MonoBehaviour
 
     void Update()
     {
-        duracionPartida += Time.deltaTime;
-        //Debug.Log(duracionPartida);
-        if (duracionPartida >= limiteTiempoDePartida)
+        if (duracionPartida > 0)
         {
-            
+            duracionPartida -= Time.deltaTime;
+
+            if (duracionPartida <= 0)
+            {
+                duracionPartida = 0;
+            }
+        }
+
+        manejadorUI.ActualizadTemporizador(duracionPartida);
+
+        if (duracionPartida <= 0)
+        {
             color.a += Time.deltaTime;
-            if (color.a >= 1) color.a = 1;
+            color.a = Mathf.Clamp01(color.a);
             imagen.color = color;
-            
-            if (imagen.color.a == 1)
+
+            if (color.a >= 1)
             {
                 jugadorScript.enabled = false;
                 TerminarPartida();
             }
-            
-        } 
+        }
 
     }
 
@@ -108,6 +116,12 @@ public class ManejadorPartida : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
+    /*public void ReiniciarPartida()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
+    }*/
 
     public void Ajustes()
     {
