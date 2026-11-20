@@ -23,7 +23,7 @@ public class RetrocederState : IState
             fsm.ChangeState(new IdleState(jugador, fsm));
             return;
         }
-
+        jugador.ActualizarAnimacion(2);
         jugador.Retroceder();
         jugador.Girar(0.5f, 5, 50);
     }

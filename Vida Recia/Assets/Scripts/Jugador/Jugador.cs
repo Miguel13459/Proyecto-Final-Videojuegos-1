@@ -111,6 +111,7 @@ public class Jugador : MonoBehaviour
 
         PedidoPerdido = false;
         //arranqueEnCurso = true;
+        rb.centerOfMass = new Vector3(0, -0.5f, 0);
         fsm = new StateMachine();
         fsm.Initialize(new IdleState(this, fsm));
     }
@@ -137,7 +138,7 @@ public class Jugador : MonoBehaviour
         velocidadHorizontal = transform.forward * (velocidadActual / 3.6f);
         rb.linearVelocity = new Vector3(
             velocidadHorizontal.x,
-            rb.linearVelocity.y,
+            Mathf.Clamp(rb.linearVelocity.y, -10f, 3f),
             velocidadHorizontal.z
         );
     }
@@ -267,7 +268,7 @@ public class Jugador : MonoBehaviour
         {
             if (estaEnEspera)
             {
-                Debug.Log("Estas en estado esperando no puedes recibir golpes"); 
+                //Debug.Log("Estas en estado esperando no puedes recibir golpes"); 
                 return;
             }
             PerderVidaPizza();
