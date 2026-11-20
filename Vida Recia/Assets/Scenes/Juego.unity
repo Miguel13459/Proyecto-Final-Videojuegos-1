@@ -15442,7 +15442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65bcc3db0b6cb14daff28f92fc92d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManejadorUI
-  pantallaNegroComenzar: {fileID: 0}
+  pantallaNegroComenzar: {fileID: 197105580}
   velocimetroBarra: {fileID: 1679198665}
   barraVida: {fileID: 1176813334}
   textoVelocimetro: {fileID: 585746557}
@@ -24287,7 +24287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: -0.000015258789}
+  m_AnchoredPosition: {x: -186, y: -0.000015258789}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275079940
@@ -24308,7 +24308,7 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 2039419222}
-    m_SelectOnRight: {fileID: 1678803291}
+    m_SelectOnRight: {fileID: 2039419222}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -31365,12 +31365,12 @@ GameObject:
   - component: {fileID: 1678803292}
   - component: {fileID: 1678803291}
   m_Layer: 5
-  m_Name: BotonAjustes
+  m_Name: BotonReiniciar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1678803290
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31435,7 +31435,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1678803292}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1089733284}
+        m_TargetAssemblyTypeName: ManejadorPartida, Assembly-CSharp
+        m_MethodName: ReiniciarPartida
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1678803292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37249,7 +37261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: -0.000015258789}
+  m_AnchoredPosition: {x: 187, y: 0.0000026927}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2039419222
@@ -37269,7 +37281,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 1678803291}
+    m_SelectOnLeft: {fileID: 1275079940}
     m_SelectOnRight: {fileID: 1275079940}
   m_Transition: 1
   m_Colors:
