@@ -45,10 +45,8 @@ public class CamaraOrbital : MonoBehaviour
 
     void Update()
     {
-        mirar = (
-            playerInput.actions["MirarMouse"].ReadValue<Vector2>() * sensibilidadMouse) + 
-            (sensibilidadControl * Time.deltaTime * playerInput.actions["MirarGamepad"].ReadValue<Vector2>()
-        );
+        mirar = (playerInput.actions["MirarMouse"].ReadValue<Vector2>() * sensibilidadMouse) + 
+                (sensibilidadControl * Time.deltaTime * playerInput.actions["MirarGamepad"].ReadValue<Vector2>());
 
         if(mirar.sqrMagnitude < 0.1f)
         {

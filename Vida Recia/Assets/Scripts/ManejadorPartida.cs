@@ -8,6 +8,7 @@ public class ManejadorPartida : MonoBehaviour
 {
     GameObject jugadorGO;
     Jugador jugadorScript;
+    CamaraOrbital camaraOrbital;
     float duracionPartida;
     float limiteTiempoDePartida;
 
@@ -28,6 +29,7 @@ public class ManejadorPartida : MonoBehaviour
     {
         jugadorGO = GameObject.FindGameObjectWithTag("Player");
         jugadorScript = jugadorGO.GetComponent<Jugador>();
+        camaraOrbital = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamaraOrbital>();
         imagen = pantallaNegra.GetComponent<Image>();
         color = imagen.color;
         duracionPartida = 0;
@@ -87,6 +89,8 @@ public class ManejadorPartida : MonoBehaviour
     {
         panelPausa.SetActive(true);
         Time.timeScale = 0f;
+        jugadorScript.sonidoMoto.Pause();
+        camaraOrbital.enabled = false;
         isPausado = true;
 
         Cursor.visible = true;
@@ -97,6 +101,8 @@ public class ManejadorPartida : MonoBehaviour
     {
         panelPausa.SetActive(false);
         Time.timeScale = 1f;
+        jugadorScript.sonidoMoto.Play();
+        camaraOrbital.enabled = true;
         isPausado = false;
 
         Cursor.visible = false;
