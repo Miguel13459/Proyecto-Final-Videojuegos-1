@@ -11,6 +11,7 @@ TagManager:
   - EntregarMision
   - Suelo
   - Calles
+  - Engrane
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - Calles
+  - Calle
+  - Obstaculos
+  - Engranes
   - 
   - 
   - 
