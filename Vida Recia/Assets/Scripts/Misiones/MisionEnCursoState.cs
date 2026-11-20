@@ -33,7 +33,7 @@ public class MisionEnCursoState : IState
     public void Execute()
     {
         mision.AvisarSiEstaEnEspera(estaEnEspera);
-        mision.StatusMision("enCurso");
+        mision.StatusMision("enCurso", "");
         if(jugador.PedidoPerdido) fsm.ChangeState(new MisionFallida(mision, fsm, jugador));
     }
 

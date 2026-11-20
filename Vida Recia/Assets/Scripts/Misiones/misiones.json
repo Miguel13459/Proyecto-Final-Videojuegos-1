@@ -2,7 +2,7 @@
     "misiones": [
         {
             "misionId": 1,
-            "nombre": "Michel",
+            "nombre": "Alain el esquizo Acosta",
             "lugar": "Hospital General",
             "coordenadas": [
                 -29.1,-41.3
@@ -10,7 +10,7 @@
         },
         {
             "misionId": 2,
-            "nombre": "Señorita Melendez",
+            "nombre": "Chris el destructor Alvarez",
             "lugar": "Residencia 101",
             "coordenadas": [
                 -14.2,62.8
@@ -26,7 +26,7 @@
         },
         {
             "misionId": 4,
-            "nombre": "Caballero Hernandez",
+            "nombre": "Yessenia la rompecorazones Gausin",
             "lugar": "Residencia 103",
             "coordenadas": [
                 29.7,62.8
@@ -34,7 +34,7 @@
         },
         {
             "misionId": 5,
-            "nombre": "Licenciado Rogelio",
+            "nombre": "Marian la artista Gomez",
             "lugar": "Otzo",
             "coordenadas": [
                 -280.1,75.3
@@ -42,10 +42,154 @@
         },
         {
             "misionId": 6,
-            "nombre": "General Roberto",
-            "lugar": "Residencia 301",
+            "nombre": "Jesus el Dios Herrera",
+            "lugar": "Apartamento 301",
             "coordenadas": [
                 -91,114
+            ]
+        },
+        {
+            "misionId": 7,
+            "nombre": "Ivan El striper Aldama",
+            "lugar": "Estación de bomberos",
+            "coordenadas": [
+                -72.12,-75.45
+            ]
+        },
+        {
+            "misionId": 8,
+            "nombre": "Ed el racista",
+            "lugar": "Super Mercado",
+            "coordenadas": [
+                -178.3,-29.4
+            ]
+        },
+        {
+            "misionId": 9,
+            "nombre": "Inge Emiliano",
+            "lugar": "Cine Central",
+            "coordenadas": [
+                -136.1,15.4
+            ]
+        },
+        {
+            "misionId": 10,
+            "nombre": "Rene el adicto Mesta",
+            "lugar": "Dairy King",
+            "coordenadas": [
+                -202.8,11.1
+            ]
+        },
+        {
+            "misionId": 11,
+            "nombre": "Abigail la adicta a la MOTA",
+            "lugar": "Estación de la policia",
+            "coordenadas": [
+                -209,64.3
+            ]
+        },
+        {
+            "misionId": 12,
+            "nombre": "Profesor Astorga",
+            "lugar": "Escuela Niños Heroes",
+            "coordenadas": [
+                -301.7,-92
+            ]
+        },
+        {
+            "misionId": 13,
+            "nombre": "Profesor Edson Flores",
+            "lugar": "Escuela la parte de atrás",
+            "coordenadas": [
+                -272.7,-20
+            ]
+        },
+        {
+            "misionId": 14,
+            "nombre": "Profesor Fransisco Barroso",
+            "lugar": "Escuela la parte de animaciones lcoas",
+            "coordenadas": [
+                -338.6,-20
+            ]
+        },
+        {
+            "misionId": 15,
+            "nombre": "Edwin el diabético Carrillo",
+            "lugar": "Residencia 201",
+            "coordenadas": [
+                -304,12.9
+            ]
+        },
+        {
+            "misionId": 16,
+            "nombre": "Raul el paggalero Ruiz",
+            "lugar": "Residencia 202",
+            "coordenadas": [
+                -295.3,12.9
+            ]
+        },
+        {
+            "misionId": 17,
+            "nombre": "Naomy UwU Alvarado",
+            "lugar": "Gasolinera",
+            "coordenadas": [
+                -315,118.4
+            ]
+        },
+        {
+            "misionId": 18,
+            "nombre": "Natalia 7w7 Amparan",
+            "lugar": "Gasolinera",
+            "coordenadas": [
+                -315,178.8
+            ]
+        },
+        {
+            "misionId": 19,
+            "nombre": "Elian el desafortunado Rodriguez",
+            "lugar": "Burritos El pesado",
+            "coordenadas": [
+                -318.4,85.3
+            ]
+        },
+        {
+            "misionId": 20,
+            "nombre": "Vicky la grosera Hernandez",
+            "lugar": "Alcaldía",
+            "coordenadas": [
+                -129.7,61.9
+            ]
+        },
+        {
+            "misionId": 21,
+            "nombre": "Gustavo roba trabajos Hernandez",
+            "lugar": "Apartamento 102",
+            "coordenadas": [
+                -86.47,202.07
+            ]
+        },
+        {
+            "misionId": 22,
+            "nombre": "Damian el motero Alexis",
+            "lugar": "Residencia 205",
+            "coordenadas": [
+                -52.5,126.4
+            ]
+        },
+        {
+            "misionId": 23,
+            "nombre": "Antonio el artista Enrique",
+            "lugar": "Parque Central",
+            "coordenadas": [
+                -36.8,175.9
+            ]
+        },
+        {
+            "misionId": 24,
+            "nombre": "Miguel el motero Trujillo",
+            "lugar": "Residencia 304",
+            "coordenadas": [
+                -306,40
             ]
         }
     ]

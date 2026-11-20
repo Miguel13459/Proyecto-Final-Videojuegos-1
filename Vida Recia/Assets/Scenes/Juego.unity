@@ -2162,10 +2162,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bache3
       objectReference: {fileID: 0}
-    - target: {fileID: 8775744806254876785, guid: 7c71e6d956c8e364f941729e2e2dd416, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4283,7 +4279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8573081525006053362, guid: e390aab544060284cba87793d1e50e7b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.1
+      value: -31.8
       objectReference: {fileID: 0}
     - target: {fileID: 8573081525006053362, guid: e390aab544060284cba87793d1e50e7b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4291,7 +4287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8573081525006053362, guid: e390aab544060284cba87793d1e50e7b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.7
+      value: -7.8
       objectReference: {fileID: 0}
     - target: {fileID: 8573081525006053362, guid: e390aab544060284cba87793d1e50e7b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8424,10 +8420,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bache3 (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 8775744806254876785, guid: 7c71e6d956c8e364f941729e2e2dd416, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9632,7 +9624,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.6
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -19001,10 +18993,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bache2 (8)
       objectReference: {fileID: 0}
-    - target: {fileID: 8775744806254876785, guid: e87d88e3dc4e26c4aa029f76d8b768f0, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19548,10 +19536,6 @@ PrefabInstance:
     - target: {fileID: 8775744806254876785, guid: fe9f94063b8ec544d89018cb99fd8f9c, type: 3}
       propertyPath: m_Name
       value: Bache (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8775744806254876785, guid: fe9f94063b8ec544d89018cb99fd8f9c, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -29,13 +29,14 @@ public class EsperandoPedidoState : IState
         mision.AvisarSiEstaEnEspera(estaEnEspera);
         jugador.vidaPizza = 3;
         jugador.PedidoPerdido = false;
+        mision.SeleccionarMision();
         mision.AparecerAJackson();
         jugador.OnMisionColisionar += CambiarAMisionEnCurso;
     }
 
     public void Execute()
     {
-        mision.StatusMision("esperando");
+        mision.StatusMision("esperando", "");
         //Debug.Log("Ejecutando EsperandoPedidoState");
     }
 

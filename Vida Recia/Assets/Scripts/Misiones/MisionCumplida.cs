@@ -7,6 +7,8 @@ public class MisionCumplida : IState
     private float contador;
     private Jugador jugador;
     private bool estaEnEspera;
+    private string[] palabras = { "desalmado", "desquisiado", "esquizofrénico", "despiadado", "perverso", "sanguinario" };
+    int palabraElegida = 0;
 
     public MisionCumplida(ManejadorMisiones mision, StateMachine fsm)
     {
@@ -29,12 +31,13 @@ public class MisionCumplida : IState
         mision.MandarCerrarVida();
         ManejadorPartida.pizzasEntregadas++;
         contador = 0;
+        palabraElegida = Random.Range(0, palabras.Length);
     }
 
     public void Execute()
     {
         mision.AvisarSiEstaEnEspera(estaEnEspera);
-        mision.StatusMision("cumplida");
+        mision.StatusMision("cumplida", palabras[palabraElegida]);
         contador += Time.deltaTime;
         if (contador >= 10) fsm.ChangeState(new EsperandoPedidoState(mision, fsm, jugador));
     }

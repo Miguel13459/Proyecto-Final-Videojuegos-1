@@ -129,7 +129,12 @@ public class ManejadorUI : MonoBehaviour
         vidaPizza.SetActive(false);
     }
 
-    public IEnumerator MostrarStatusCorrutina(string titulo, string descripcion, ManejadorDialogos manejadorDialogos)
+    public void MostrarStatus(string titulo, string descripcion, ManejadorDialogos manejadorDialogos)
+    {
+        MostrarStatus(titulo, descripcion);
+    }
+
+    /*public IEnumerator MostrarStatusCorrutina(string titulo, string descripcion, ManejadorDialogos manejadorDialogos)
     {
         //Debug.Log("Entra a la corrutina");
         while (manejadorDialogos.dialogoEstaActivo)
@@ -139,5 +144,5 @@ public class ManejadorUI : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
         MostrarStatus(titulo, descripcion);
-    }
+    }*/
 }
