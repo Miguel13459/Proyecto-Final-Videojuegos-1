@@ -20,6 +20,11 @@ public class CamaraOrbital : MonoBehaviour
 
     PlayerInput playerInput;
 
+    [Header("Colisiones de cámara")]
+    public float radioCamara = 0.3f;
+    public float distanciaMinima = 0.5f;
+    public LayerMask capasObstaculos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,8 +45,10 @@ public class CamaraOrbital : MonoBehaviour
 
     void Update()
     {
-        mirar = (playerInput.actions["MirarMouse"].ReadValue<Vector2>() * sensibilidadMouse) + (sensibilidadControl * Time.deltaTime * playerInput.actions["MirarGamepad"].ReadValue<Vector2>());
-        //Debug.Log("Mirar: " + mirar);
+        mirar = (
+            playerInput.actions["MirarMouse"].ReadValue<Vector2>() * sensibilidadMouse) + 
+            (sensibilidadControl * Time.deltaTime * playerInput.actions["MirarGamepad"].ReadValue<Vector2>()
+        );
 
         if(mirar.sqrMagnitude < 0.1f)
         {
@@ -60,8 +67,6 @@ public class CamaraOrbital : MonoBehaviour
 
         angulo.x += mirar.x;
         angulo.y += mirar.y;
-        //Debug.Log("Angulo: " + angulo);
-        //angulo.y = Math.Clamp(angulo.y, -40, 60);
         if (angulo.y > 60f) angulo.y = 60f;
         if (angulo.y < -40f) angulo.y = -40f;
     }
@@ -69,12 +74,39 @@ public class CamaraOrbital : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Quaternion rotacionCamara = Quaternion.Euler(angulo.y, componenteTransformJugador.eulerAngles.y + angulo.x, 0 );
-        Vector3 posicion = componenteTransformCamara.position + rotacionCamara * new Vector3(0, 2f, -distanciaCamara); ;
-        transform.position = posicion;
-        transform.LookAt(componenteTransformCamara);
+        Quaternion rotacionCamara = Quaternion.Euler(
+            angulo.y,
+            componenteTransformJugador.eulerAngles.y + angulo.x,
+            0
+        );
 
-        
+        Vector3 origen = componenteTransformCamara.position;
+
+        Vector3 direccion = rotacionCamara *
+                            new Vector3(0, 2f, -distanciaCamara);
+
+        float distancia = direccion.magnitude;
+        direccion.Normalize();
+
+        Vector3 posicionDeseada = origen + direccion * distancia;
+
+        RaycastHit hit;
+
+        if (Physics.SphereCast(
+            origen,
+            radioCamara,
+            direccion,
+            out hit,
+            distancia,
+            capasObstaculos
+        ))
+        {
+            posicionDeseada = origen +
+                direccion * Mathf.Max(hit.distance - distanciaMinima, 0.1f);
+        }
+
+        transform.position = posicionDeseada;
+        transform.LookAt(origen);
     }
 
 }

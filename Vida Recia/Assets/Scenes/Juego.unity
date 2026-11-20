@@ -6775,7 +6775,7 @@ Transform:
   m_GameObject: {fileID: 313357444}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.35, y: 0, z: 11.7}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7443,6 +7443,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CamaraOrbital
   jugador: {fileID: 313357444}
   puntoCamara: {fileID: 1869881695}
+  radioCamara: 0.3
+  distanciaMinima: 0.5
+  capasObstaculos:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1001 &332116382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11733,9 +11738,9 @@ RectTransform:
   - {fileID: 1584681379}
   m_Father: {fileID: 637555057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350.26, y: -22}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 289.74, y: -22}
   m_SizeDelta: {x: 537.48, y: 164.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &664543574
@@ -12402,9 +12407,9 @@ RectTransform:
   - {fileID: 1909628123}
   m_Father: {fileID: 637555057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -325, y: -300}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 315, y: 60}
   m_SizeDelta: {x: 175, y: 77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &701534404
@@ -20267,9 +20272,9 @@ RectTransform:
   - {fileID: 397084474}
   m_Father: {fileID: 637555057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 489.5, y: -257.64}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -150.5, y: 102.359985}
   m_SizeDelta: {x: 278.5, y: 182}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117599936
@@ -35158,7 +35163,7 @@ GameObject:
   - component: {fileID: 2051408550}
   - component: {fileID: 2051408549}
   - component: {fileID: 2051408548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PisoMapa
   m_TagString: Suelo
   m_Icon: {fileID: 0}
@@ -36508,8 +36513,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 0}
-  m_SizeDelta: {x: 60, y: 30}
+  m_AnchoredPosition: {x: 16.514, y: -3.7}
+  m_SizeDelta: {x: 81.6129, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2140949453
 MonoBehaviour:
@@ -36558,8 +36563,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
