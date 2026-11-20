@@ -33,7 +33,7 @@ public class CamaraOrbital : MonoBehaviour
         angulo = new Vector2(0, 0);
         sensibilidadMouse = 0.05f;
         sensibilidadControl = 100;
-        distanciaCamara = 6;
+        distanciaCamara = 8;
         velocidadRegreso = 5;
         contador = 0;
     }
@@ -70,10 +70,11 @@ public class CamaraOrbital : MonoBehaviour
     void LateUpdate()
     {
         Quaternion rotacionCamara = Quaternion.Euler(angulo.y, componenteTransformJugador.eulerAngles.y + angulo.x, 0 );
-        Vector3 posicion = componenteTransformCamara.position - rotacionCamara * Vector3.forward * distanciaCamara;
-        posicion.y = componenteTransformCamara.position.y + 2;
+        Vector3 posicion = componenteTransformCamara.position + rotacionCamara * new Vector3(0, 2f, -distanciaCamara); ;
         transform.position = posicion;
         transform.LookAt(componenteTransformCamara);
+
+        
     }
 
 }
