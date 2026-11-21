@@ -22836,6 +22836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManejadorPartida
   manejadorUI: {fileID: 820092212}
+  globalVolume: {fileID: 832575518}
   pantallaNegra: {fileID: 197105578}
   panelPausa: {fileID: 1155692757}
   eventSystem: {fileID: 96750950}

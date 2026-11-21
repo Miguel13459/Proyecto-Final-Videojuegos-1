@@ -1,6 +1,8 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,7 +13,7 @@ public class ManejadorPartida : MonoBehaviour
     CamaraOrbital camaraOrbital;
     public ManejadorUI manejadorUI;
     float duracionPartida;
-    float limiteTiempoDePartida;
+    public Volume globalVolume;
 
     public static int pizzasEntregadas;
     public static int pizzasPerdidas;
@@ -99,6 +101,12 @@ public class ManejadorPartida : MonoBehaviour
         Time.timeScale = 0f;
         jugadorScript.sonidoMoto.Pause();
         camaraOrbital.enabled = false;
+        if (globalVolume.profile.TryGet(out DepthOfField depthOfField))
+        {
+            depthOfField.focalLength.value = 182;
+            depthOfField.aperture.value = 0f;
+        }
+        ;
         isPausado = true;
 
         Cursor.visible = true;
@@ -111,6 +119,11 @@ public class ManejadorPartida : MonoBehaviour
         Time.timeScale = 1f;
         jugadorScript.sonidoMoto.Play();
         camaraOrbital.enabled = true;
+        if (globalVolume.profile.TryGet(out DepthOfField depthOfField))
+        {
+            depthOfField.focalLength.value = 50;
+            depthOfField.aperture.value = 5.6f;
+        }
         isPausado = false;
 
         Cursor.visible = false;
