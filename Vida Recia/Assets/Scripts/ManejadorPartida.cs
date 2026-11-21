@@ -128,8 +128,12 @@ public class ManejadorPartida : MonoBehaviour
         Debug.Log("No hay presupuesto para desarrollar esta parte");
     }
 
-    public void salirAlMenu()
+    public void SalirAlMenu()
     {
+        Time.timeScale = 1f;
+        jugadorScript.sonidoMoto.Play();
+        camaraOrbital.enabled = true;
+        isPausado = false;
         SceneManager.LoadScene("MenuInicio");
     }
 }

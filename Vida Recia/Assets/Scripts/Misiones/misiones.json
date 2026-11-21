@@ -13,23 +13,23 @@
             "nombre": "Chris el destructor Alvarez",
             "lugar": "Residencia 101",
             "coordenadas": [
-                -14.2,62.8
+                -24.42,62.8
             ]
         },
         {
             "misionId": 3,
             "nombre": "Don Pascacio",
-            "lugar": "Residencia 102",
+            "lugar": "Residencia 106",
             "coordenadas": [
-                9,62.8
+                30.84,93.88
             ]
         },
         {
             "misionId": 4,
             "nombre": "Yessenia la rompecorazones Gausin",
-            "lugar": "Residencia 103",
+            "lugar": "Residencia 105",
             "coordenadas": [
-                29.7,62.8
+                -31.51,125.92
             ]
         },
         {
@@ -114,7 +114,7 @@
         },
         {
             "misionId": 15,
-            "nombre": "Edwin el diabético Carrillo",
+            "nombre": "Edwin el dulce Carrillo",
             "lugar": "Residencia 201",
             "coordenadas": [
                 -304,12.9
