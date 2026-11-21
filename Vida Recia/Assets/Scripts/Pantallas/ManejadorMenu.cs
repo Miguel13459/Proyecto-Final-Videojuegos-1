@@ -53,6 +53,8 @@ public class ManejadorMenu : MonoBehaviour
     public void Jugar()
     {
         Debug.Log("Comenzando");
+        Debug.Log("comenzarPartida: " + comenzarPartida);
+        Debug.Log("cargandoPartida: " + cargandoPartida);
         comenzarPartida = true;
     }
 
