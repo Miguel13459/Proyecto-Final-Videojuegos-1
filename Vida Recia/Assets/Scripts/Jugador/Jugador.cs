@@ -21,7 +21,9 @@ public class Jugador : MonoBehaviour
     public float acelerar;
     public Vector2 giro;
     public bool pausa;
-    public Vector2 administrarMusica;
+    public bool siguiente;
+    public bool anterior;
+    public bool pausarMusica;
 
     [Header("Velocidades")]
     public float velocidadActual;
@@ -69,6 +71,7 @@ public class Jugador : MonoBehaviour
     public ManejadorUI manejadorUI;
     public ManejadorMisiones manejadorMisiones;
     public ManejadorDialogos manejadorDialogos;
+    public ManejadorPartida manejadorPartida;
 
     private StateMachine fsm;
     public bool arranqueEnCurso;
@@ -123,6 +126,7 @@ public class Jugador : MonoBehaviour
         LeerControles();
         if (pausa) Pausar();
     }
+
     void FixedUpdate()
     {
         fsm.Update();
@@ -149,7 +153,9 @@ public class Jugador : MonoBehaviour
         acelerar = playerInput.actions["Acelerar"].ReadValue<float>();
         giro = playerInput.actions["Girar"].ReadValue<Vector2>();
         pausa = playerInput.actions["Pausa"].WasPressedThisFrame();
-        //administrarMusica = playerInput.actions["AdministrarMusica"].WasPressedThisFrame();
+        siguiente = playerInput.actions["CambiarSiguienteCancion"].WasPressedThisFrame();
+        anterior = playerInput.actions["CambiarAnteriorCancion"].WasPressedThisFrame();
+        pausarMusica = playerInput.actions["PausarCancion"].WasPressedThisFrame();
     }
 
     internal void Acelerar()
@@ -334,5 +340,7 @@ public class Jugador : MonoBehaviour
     {
         OnPausar?.Invoke();
     }
+
+    
 
 }

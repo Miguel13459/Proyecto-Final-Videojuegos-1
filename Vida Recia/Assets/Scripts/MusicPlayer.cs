@@ -6,8 +6,8 @@ using TMPro;
 [System.Serializable]
 public class SongData
 {
-    public string songTitle;        // Nombre visible de la canción (opcional si quieres personalizarlo)
-    public AudioClip audioClip;     // El archivo de audio (.mp3, .wav, etc.)
+    public string songTitle;
+    public AudioClip audioClip;
 }
 
 public class MusicPlayer : MonoBehaviour
@@ -43,13 +43,12 @@ public class MusicPlayer : MonoBehaviour
         if (SliderTiempoCancion != null && audioSource != null)
         {
             SliderTiempoCancion.value = tiempoActual / duracionTotal;
-            //SliderTiempoCancion.onValueChanged.AddListener(SetVolume);
         }
 
         if (audioSource == null || playlist.Length == 0) return;
 
 
-        // 2. CAMBIO AUTOMÁTICO DE CANCIÓN
+        // CAMBIO AUTOMÁTICO DE CANCIÓN
         if (!audioSource.isPlaying && !isPlayerPausedManual)
         {
             // Si la canción llegó al final o está al inicio sin sonar

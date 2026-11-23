@@ -1,3 +1,4 @@
+using System;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -39,7 +40,7 @@ public class ManejadorPartida : MonoBehaviour
         camaraOrbital = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamaraOrbital>();
         imagen = pantallaNegra.GetComponent<Image>();
         color = imagen.color;
-        duracionPartida = 5f;
+        duracionPartida = 300f;
 
         pizzasEntregadas = 0;
         pizzasPerdidas = 0;
@@ -48,6 +49,11 @@ public class ManejadorPartida : MonoBehaviour
 
     void Update()
     {
+        
+        if (jugadorScript.siguiente) CambiarSiguienteCancion();
+        if (jugadorScript.anterior) CambiarAnteriorCancion();
+        if (jugadorScript.pausarMusica) PausarCancion();
+
         if (duracionPartida > 0)
         {
             duracionPartida -= Time.deltaTime;
@@ -157,5 +163,22 @@ public class ManejadorPartida : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("MenuInicio");
+    }
+
+    public void PausarCancion()
+    {
+        musicPlayerSript.PlayPauseToggle();
+    }
+
+    public void CambiarAnteriorCancion()
+    {
+        musicPlayerSript.PreviousSong();
+        jugadorScript.anterior = false;
+    }
+
+    public void CambiarSiguienteCancion()
+    {
+        musicPlayerSript.NextSong();
+        jugadorScript.siguiente = false;
     }
 }
