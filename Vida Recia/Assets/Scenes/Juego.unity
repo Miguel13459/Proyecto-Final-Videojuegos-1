@@ -7596,6 +7596,9 @@ MonoBehaviour:
   acelerar: 0
   giro: {x: 0, y: 0}
   pausa: 0
+  siguiente: 0
+  anterior: 0
+  pausarMusica: 0
   velocidadActual: 0
   velocidadMaxima: 0
   aceleracionKmH: 0
@@ -7622,6 +7625,7 @@ MonoBehaviour:
   manejadorUI: {fileID: 0}
   manejadorMisiones: {fileID: 0}
   manejadorDialogos: {fileID: 0}
+  manejadorPartida: {fileID: 0}
   arranqueEnCurso: 0
   PedidoPerdido: 0
 --- !u!54 &313357448
@@ -28192,10 +28196,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bache2
       objectReference: {fileID: 0}
-    - target: {fileID: 8775744806254876785, guid: e87d88e3dc4e26c4aa029f76d8b768f0, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33406,17 +33406,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MusicPlayer
   audioSource: {fileID: 30460271}
   songTitleText: {fileID: 780370917}
-  volumeSlider: {fileID: 0}
-  discImage: {fileID: 0}
   SliderTiempoCancion: {fileID: 607179776}
-  rotationSpeed: 100
   playlist:
-  - songTitle: Tyler the Creator - Earthquake
-    audioClip: {fileID: 8300000, guid: dd9e3d7ba1b403842b54228bde43960e, type: 3}
-    albumArt: {fileID: 21300000, guid: 2d6ab1e34c7120042b60f0fb79fe5230, type: 3}
-  - songTitle: Alice in Chains - Bleed the Freak
-    audioClip: {fileID: 8300000, guid: 1a8a7617b610fb3439ce9c3588cbdc4c, type: 3}
-    albumArt: {fileID: 21300000, guid: 2f46710eddfb3bd4fb75e1b7312a874d, type: 3}
+  - {fileID: 8300000, guid: 1876341dbe380b340a15e4c96d6029ba, type: 3}
+  - {fileID: 8300000, guid: 2f69c78264360aa4e9ebc251603b80ae, type: 3}
+  - {fileID: 8300000, guid: 1089c672855ab39488ae9095ffd1b944, type: 3}
+  - {fileID: 8300000, guid: 1c20f29ff423fb94786552379928c947, type: 3}
+  - {fileID: 8300000, guid: 42b824d4be42c9e40bb71b72fe78b677, type: 3}
+  - {fileID: 8300000, guid: 3fcebbe637902db44b2b48dcade909ee, type: 3}
+  - {fileID: 8300000, guid: 994667e5c017bbb429bf6c108628eaf5, type: 3}
+  - {fileID: 8300000, guid: be233b7fc2ea06f4ab4f3302fb3c20ec, type: 3}
+  - {fileID: 8300000, guid: e55ae02c7abb83643a6d945f40a957e9, type: 3}
+  - {fileID: 8300000, guid: 3d3ab0793f7db3b40a8b3f63a2b603c7, type: 3}
+  - {fileID: 8300000, guid: 9360d3e67cd4f6144abc7c15506c656e, type: 3}
+  - {fileID: 8300000, guid: 62de2d1313eb280458d6158c4e31f6ef, type: 3}
+  - {fileID: 8300000, guid: 94b91dab87f77c241a1e5e06960ad25f, type: 3}
+  - {fileID: 8300000, guid: 3df0f089837a5784ca5717fd91c3840e, type: 3}
+  - {fileID: 8300000, guid: f493b040dbdfc734fa2d53c5485c2caa, type: 3}
+  - {fileID: 8300000, guid: 9c951e0cc36b9a84fbb66542ed0069f2, type: 3}
+  - {fileID: 8300000, guid: dcf63f7a0f000554fb0465424649a560, type: 3}
+  - {fileID: 8300000, guid: e9c1f17fef224e645ac0c4525b10231c, type: 3}
+  - {fileID: 8300000, guid: e9b192f6971e35140a67310463a04c94, type: 3}
+  - {fileID: 8300000, guid: a148b68aa527d1b4390cd68b879fef23, type: 3}
+  - {fileID: 8300000, guid: 7a3943935c412c84f9e833540ff6c2d2, type: 3}
+  - {fileID: 8300000, guid: bf5d4174a6752ec4e9f78a8b603954d6, type: 3}
+  - {fileID: 8300000, guid: 94e6438f582c0f8428efafe4c913d5c9, type: 3}
+  - {fileID: 8300000, guid: a544c919fb86aa94b9f8739046363978, type: 3}
+  - {fileID: 8300000, guid: 92ec064ccc861404abb3993700789b2e, type: 3}
+  - {fileID: 8300000, guid: 5aadd81e0d089714796c6c2524bc2c29, type: 3}
+  - {fileID: 8300000, guid: 329b7657f1d7a4045a76b69e0f4a638e, type: 3}
+  - {fileID: 8300000, guid: 20929f6dc8f5883408095f6b4369f926, type: 3}
 --- !u!82 &1647458473
 AudioSource:
   m_ObjectHideFlags: 0
