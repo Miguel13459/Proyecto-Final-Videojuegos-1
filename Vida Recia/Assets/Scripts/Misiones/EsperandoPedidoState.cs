@@ -47,6 +47,7 @@ public class EsperandoPedidoState : IState
 
     public void CambiarAMisionEnCurso(GameObject objeto)
     {
+        //jugador.Hablar(0);
         if (objeto.CompareTag("RecogerMision"))
         {
             fsm.ChangeState(new MisionEnCursoState(mision, fsm, jugador));

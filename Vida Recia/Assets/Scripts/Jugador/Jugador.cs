@@ -16,6 +16,8 @@ public class Jugador : MonoBehaviour
     public Rigidbody rb;
     public GameObject llantaDelantera;
     public GameObject llantaTrasera;
+    public Escape escape;
+    public Chispas chispas;
 
     [Header("Inputs")]
     public float acelerar;
@@ -41,6 +43,9 @@ public class Jugador : MonoBehaviour
     public AudioClip frenoSonido;
     public AudioClip encendido;
 
+    [Header("Voces")]
+    public AudioSource vozDiamante;
+    public AudioClip[] arregloVoces;
 
     [Header("Direccion")]
     public float inclinacionMoto;
@@ -158,10 +163,16 @@ public class Jugador : MonoBehaviour
         pausarMusica = playerInput.actions["PausarCancion"].WasPressedThisFrame();
     }
 
+    internal void Hablar(int indice)
+    {
+        vozDiamante.PlayOneShot(arregloVoces[indice]);
+    }
+
     internal void Acelerar()
     {
         velocidadActual += aceleracionKmH * Time.fixedDeltaTime;
         velocidadActual = Mathf.Clamp(velocidadActual, 0f, velocidadMaxima);
+        escape.Acelerarando();
     }
 
     internal void Retroceder()
@@ -169,11 +180,13 @@ public class Jugador : MonoBehaviour
         float limiteVelocidadAtras = -8f;
         velocidadActual -= desaceleracionKmH * Time.fixedDeltaTime;
         if (velocidadActual < limiteVelocidadAtras) velocidadActual = limiteVelocidadAtras;
+        escape.Retrocediendo();
     }
 
     internal void Idle()
     {
         velocidadActual = Mathf.MoveTowards(velocidadActual, 0f, desaceleracionKmH * Time.fixedDeltaTime);
+        escape.ModoIdle();
     }
 
     internal void Frenar()
@@ -183,6 +196,7 @@ public class Jugador : MonoBehaviour
             0f,
             desaceleracionKmH * 2f * Time.fixedDeltaTime
         );
+        escape.Frenando();
     }
 
     internal void Desacelerar()
@@ -192,6 +206,7 @@ public class Jugador : MonoBehaviour
             0f,
             desaceleracionKmH * Time.fixedDeltaTime
         );
+        escape.Desacelerando();
     }
 
     public void Girar(float sensibilidadGiro, float limiteInclinacion, float velocidadInclinacion)
@@ -269,18 +284,23 @@ public class Jugador : MonoBehaviour
         PedidoPerdido = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other == null) return;
-        if (other.gameObject.CompareTag("Obstaculo"))
+        if (collision.gameObject.CompareTag("Bache"))
         {
             if (estaEnEspera)
             {
-                //Debug.Log("Estas en estado esperando no puedes recibir golpes"); 
                 return;
             }
+            chispas.sacarChispas = true;
             PerderVidaPizza();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other == null) return;
+        
         if (other.gameObject.CompareTag("RecogerMision"))
         {
             //OnRecogerPizza?.Invoke();

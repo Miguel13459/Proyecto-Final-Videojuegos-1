@@ -74,8 +74,6 @@ public class ManejadorMisiones : MonoBehaviour
     public void SeleccionarMision()
     {
         misionIndex = Random.Range(0, misiones.Count);
-
-        //Debug.Log("Misión seleccionada: " + misiones[misionIndex].lugar);
     }
 
     public void AparecerCLiente()
