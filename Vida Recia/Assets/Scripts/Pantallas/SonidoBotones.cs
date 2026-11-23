@@ -3,15 +3,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class SonidoBotones : MonoBehaviour, 
-    ISelectHandler,
-    IDeselectHandler,
-    ISubmitHandler, 
+    IPointerClickHandler, 
     IPointerEnterHandler, 
     IPointerExitHandler
 {
-    public ManejadorResultados manejadorResultados;
     public AudioSource fuenteDeAudio;
     public AudioClip sonidoSeleccion;
+    public AudioClip sonidoSubmit;
 
     RectTransform propiedadesBoton;
     float width;
@@ -19,8 +17,8 @@ public class SonidoBotones : MonoBehaviour,
     Vector2 escalaInicial;
     Vector2 escalaFinal;
     bool isHovered;
-    bool isSelected;
-    bool primeraSeleccion;
+    /*bool isSelected;
+    bool primeraSeleccion;*/
     void Awake()
     {
         propiedadesBoton = GetComponent<RectTransform>();
@@ -28,12 +26,12 @@ public class SonidoBotones : MonoBehaviour,
         height = propiedadesBoton.rect.height;
         escalaInicial = new Vector2(width, height);
         escalaFinal = new Vector2(width + 12, height + 8);
-        primeraSeleccion = true;
+        //primeraSeleccion = true;
     }
 
     void Update()
     {
-        if (isHovered || isSelected)
+        if (isHovered)
         {
             EscalarBoton();
         }
@@ -42,7 +40,7 @@ public class SonidoBotones : MonoBehaviour,
             RegresarEscalaBoton();
         }
     }
-    public void OnSelect(BaseEventData eventData)
+    /*public void OnSelect(BaseEventData eventData)
     {
         isSelected = true;
 
@@ -52,34 +50,34 @@ public class SonidoBotones : MonoBehaviour,
             return;
         }
 
-        ReproducirSonido();
+        ReproducirSonido(sonidoSeleccion);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         isSelected = false;
-    }
+    }*/
 
-    public void OnSubmit(BaseEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        ReproducirSonido();
+        ReproducirSonido(sonidoSubmit);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
-        ReproducirSonido();
+        ReproducirSonido(sonidoSeleccion);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
     }
-    void ReproducirSonido()
+    void ReproducirSonido(AudioClip audio)
     {
         if (fuenteDeAudio != null && sonidoSeleccion != null)
         {
-            fuenteDeAudio.PlayOneShot(sonidoSeleccion);
+            fuenteDeAudio.PlayOneShot(audio);
         }
     }
 
@@ -101,4 +99,6 @@ public class SonidoBotones : MonoBehaviour,
         if (height <= escalaInicial.y) height = escalaInicial.y;
         propiedadesBoton.sizeDelta = new Vector3(width, height);
     }
+
+    
 }

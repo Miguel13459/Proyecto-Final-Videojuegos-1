@@ -13,6 +13,7 @@ public class ManejadorResultados : MonoBehaviour
     public TMP_Text pizzasPerdidas;
     public TMP_Text mayorPizzasEntregadas;
     Image imagen;
+    Color color;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,7 +28,13 @@ public class ManejadorResultados : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(imagen != null)
+        {
+            color = imagen.color;
+            color.a -= Time.deltaTime;
+            if (color.a <= 0) color.a = 0;
+            imagen.color = color;
+        }
     }
 
 

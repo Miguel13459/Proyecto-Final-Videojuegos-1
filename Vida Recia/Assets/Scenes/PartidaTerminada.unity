@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 1886998216}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &176217375
@@ -482,9 +482,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a145b34dc48970e4b95cf3ccf034fa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SonidoBotones
-  manejadorResultados: {fileID: 772294830}
   fuenteDeAudio: {fileID: 1219652341}
   sonidoSeleccion: {fileID: 8300000, guid: d6b8b4386e2219a4fb4bef010488b895, type: 3}
+  sonidoSubmit: {fileID: 0}
 --- !u!1 &298718407
 GameObject:
   m_ObjectHideFlags: 0
@@ -2712,9 +2712,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a145b34dc48970e4b95cf3ccf034fa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SonidoBotones
-  manejadorResultados: {fileID: 772294830}
   fuenteDeAudio: {fileID: 1219652341}
   sonidoSeleccion: {fileID: 8300000, guid: d6b8b4386e2219a4fb4bef010488b895, type: 3}
+  sonidoSubmit: {fileID: 8300000, guid: b03038f28472c1f4493597b6c1c76e5a, type: 3}
 --- !u!1 &2147096145
 GameObject:
   m_ObjectHideFlags: 0

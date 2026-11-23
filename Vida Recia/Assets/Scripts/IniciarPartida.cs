@@ -11,6 +11,8 @@ public class IniciarPartida : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
         imagenPantalla = pantallaNegraComenzar.GetComponent<Image>();
         StartCoroutine(ComenzarPartida());
@@ -20,8 +22,6 @@ public class IniciarPartida : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         color = imagenPantalla.color;
         color.a -= Time.deltaTime;
         if (color.a <= 0) color.a = 0;

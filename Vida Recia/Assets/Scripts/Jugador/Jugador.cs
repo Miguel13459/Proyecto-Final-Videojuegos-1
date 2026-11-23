@@ -18,6 +18,7 @@ public class Jugador : MonoBehaviour
     public GameObject llantaTrasera;
     public Escape escape;
     public Chispas chispas;
+    public GolpeMoto golpemoto;
 
     [Header("Inputs")]
     public float acelerar;
@@ -42,6 +43,7 @@ public class Jugador : MonoBehaviour
     public AudioClip desaceleracionSonido;
     public AudioClip frenoSonido;
     public AudioClip encendido;
+    
 
     [Header("Voces")]
     public AudioSource vozDiamante;
@@ -292,6 +294,7 @@ public class Jugador : MonoBehaviour
             {
                 return;
             }
+            golpemoto.ReproducirSonidoMotoGolpeada();
             chispas.sacarChispas = true;
             PerderVidaPizza();
         }

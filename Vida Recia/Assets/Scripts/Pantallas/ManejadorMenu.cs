@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.Events;
 
 public class ManejadorMenu : MonoBehaviour
 {
@@ -39,11 +39,13 @@ public class ManejadorMenu : MonoBehaviour
     {
         if (comenzarPartida && !cargandoPartida)
         {
-            color = pantallaNegra.color;
-            color.a += Time.deltaTime;
-            color.a = Mathf.Clamp01(color.a);
-
-            pantallaNegra.color = color;
+            if (pantallaNegra != null)
+            {
+                color = pantallaNegra.color;
+                color.a += Time.deltaTime;
+                color.a = Mathf.Clamp01(color.a);
+                pantallaNegra.color = color;
+            }
 
             if (color.a >= 1)
             {
