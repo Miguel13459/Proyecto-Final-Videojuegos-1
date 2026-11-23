@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +16,7 @@ public class ManejadorResultados : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         imagen = pantallaNegra.GetComponent<Image>();
         pizzasEntregadas.text = ManejadorPartida.pizzasEntregadas.ToString();
@@ -24,8 +27,9 @@ public class ManejadorResultados : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
 
     public void Jugar()
     {
@@ -34,6 +38,6 @@ public class ManejadorResultados : MonoBehaviour
 
     public void Salir()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MenuInicio");
     }
 }

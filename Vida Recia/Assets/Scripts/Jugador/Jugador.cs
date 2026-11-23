@@ -21,6 +21,7 @@ public class Jugador : MonoBehaviour
     public float acelerar;
     public Vector2 giro;
     public bool pausa;
+    public Vector2 administrarMusica;
 
     [Header("Velocidades")]
     public float velocidadActual;
@@ -148,6 +149,7 @@ public class Jugador : MonoBehaviour
         acelerar = playerInput.actions["Acelerar"].ReadValue<float>();
         giro = playerInput.actions["Girar"].ReadValue<Vector2>();
         pausa = playerInput.actions["Pausa"].WasPressedThisFrame();
+        //administrarMusica = playerInput.actions["AdministrarMusica"].WasPressedThisFrame();
     }
 
     internal void Acelerar()
@@ -325,7 +327,6 @@ public class Jugador : MonoBehaviour
         if (collision.gameObject.CompareTag("Suelo"))
         {
             puedeSaltar = true;
-            Debug.Log("Puede saltar?" + puedeSaltar);
         }
     }
 

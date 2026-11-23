@@ -25,7 +25,6 @@ public class AparecenDialogos : IState
         contador = 0f;
         tocoObjeto = false;
         dialogoEstaActivo = false;
-        Debug.Log("JUGADOOOOOOR: " + jugador);
         jugador.OnMisionColisionar += HacerAparecerDialogos;
 
     }

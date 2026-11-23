@@ -10,10 +10,13 @@ public class ManejadorPartida : MonoBehaviour
 {
     GameObject jugadorGO;
     Jugador jugadorScript;
+    public GameObject musica;
+    MusicPlayer musicPlayerSript;
     CamaraOrbital camaraOrbital;
     public ManejadorUI manejadorUI;
     float duracionPartida;
     public Volume globalVolume;
+    
 
     public static int pizzasEntregadas;
     public static int pizzasPerdidas;
@@ -32,10 +35,11 @@ public class ManejadorPartida : MonoBehaviour
     {
         jugadorGO = GameObject.FindGameObjectWithTag("Player");
         jugadorScript = jugadorGO.GetComponent<Jugador>();
+        musicPlayerSript = musica.GetComponent<MusicPlayer>();
         camaraOrbital = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamaraOrbital>();
         imagen = pantallaNegra.GetComponent<Image>();
         color = imagen.color;
-        duracionPartida = 300f;
+        duracionPartida = 5f;
 
         pizzasEntregadas = 0;
         pizzasPerdidas = 0;
@@ -92,6 +96,9 @@ public class ManejadorPartida : MonoBehaviour
             PlayerPrefs.SetInt("mayorPizzasEntregadas", mayorPizzasEntregadas);
             PlayerPrefs.Save();
         }
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("PartidaTerminada");
     }
 
@@ -147,6 +154,8 @@ public class ManejadorPartida : MonoBehaviour
         jugadorScript.sonidoMoto.Play();
         camaraOrbital.enabled = true;
         isPausado = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("MenuInicio");
     }
 }

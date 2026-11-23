@@ -1,14 +1,13 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class ManejadorMenu : MonoBehaviour
 {
     public GameObject creditos;
-    public GameObject botones;
-    public GameObject titulo;
 
     public Image pantallaNegra;
     public GameObject logoAnimado;
@@ -16,9 +15,13 @@ public class ManejadorMenu : MonoBehaviour
     Color color;
     private bool comenzarPartida;
     private bool cargandoPartida;
+
+    bool mostrarCreditos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        mostrarCreditos = false;
         comenzarPartida = false;
         cargandoPartida = false;
 
@@ -52,9 +55,6 @@ public class ManejadorMenu : MonoBehaviour
 
     public void Jugar()
     {
-        Debug.Log("Comenzando");
-        Debug.Log("comenzarPartida: " + comenzarPartida);
-        Debug.Log("cargandoPartida: " + cargandoPartida);
         comenzarPartida = true;
     }
 
@@ -73,15 +73,25 @@ public class ManejadorMenu : MonoBehaviour
 
     public void MostrarCreditos()
     {
-        botones.SetActive(false);
+        mostrarCreditos = !mostrarCreditos;
+        if (mostrarCreditos)
+        {
+            if(creditos != null) creditos.SetActive(true);
+        }
+        else
+        {
+            if (creditos != null) creditos.SetActive(false);
+        }
+        /*botones.SetActive(false);
         titulo.SetActive(false);
-        creditos.SetActive(true);
+        creditos.SetActive(true);*/
     }
 
-    public void CerrarCreditos()
+    /*public void CerrarCreditos()
     {
         creditos.SetActive(false);
         botones.SetActive(true);
         titulo.SetActive(true);
-    }
+    }*/
+
 }

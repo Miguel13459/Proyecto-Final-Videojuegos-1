@@ -73,14 +73,9 @@ public class ManejadorMisiones : MonoBehaviour
 
     public void SeleccionarMision()
     {
-        if (misiones == null || misiones.Count == 0)
-        {
-            Debug.LogError("No hay misiones cargadas.");
-            return;
-        }
         misionIndex = Random.Range(0, misiones.Count);
 
-        Debug.Log("Misión seleccionada: " + misiones[misionIndex].lugar);
+        //Debug.Log("Misión seleccionada: " + misiones[misionIndex].lugar);
     }
 
     public void AparecerCLiente()

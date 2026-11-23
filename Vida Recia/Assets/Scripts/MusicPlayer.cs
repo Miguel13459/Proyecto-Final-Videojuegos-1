@@ -8,7 +8,6 @@ public class SongData
 {
     public string songTitle;        // Nombre visible de la canción (opcional si quieres personalizarlo)
     public AudioClip audioClip;     // El archivo de audio (.mp3, .wav, etc.)
-    public Sprite albumArt;         // La imagen del disco/carátula (.png, .jpg)
 }
 
 public class MusicPlayer : MonoBehaviour
@@ -16,12 +15,8 @@ public class MusicPlayer : MonoBehaviour
     [Header("Componentes de UI")]
     public AudioSource audioSource;
     public TextMeshProUGUI songTitleText;
-    public Slider volumeSlider;
     public Image discImage;         // El componente Image de la UI que contiene el disco
     public Slider SliderTiempoCancion;
-
-    [Header("Configuración de Rotación")]
-    public float rotationSpeed = 100f; // Velocidad con la que gira el disco
 
     [Header("Lista de Canciones")]
     public SongData[] playlist;     // Lista estructurada de canciones con sus discos
@@ -32,13 +27,6 @@ public class MusicPlayer : MonoBehaviour
     float tiempoActual;
     void Start()
     {
-        // Configurar el slider de volumen
-        if (volumeSlider != null && audioSource != null)
-        {
-            volumeSlider.value = audioSource.volume;
-            volumeSlider.onValueChanged.AddListener(SetVolume);
-        }
-
         // Cargar primera canción si la lista no está vacía
         if (playlist != null && playlist.Length > 0)
         {
@@ -60,12 +48,6 @@ public class MusicPlayer : MonoBehaviour
 
         if (audioSource == null || playlist.Length == 0) return;
 
-        // 1. ROTACIÓN DEL DISCO: Gira solo si la música está sonando
-        if (audioSource.isPlaying && discImage != null)
-        {
-            // Rota sobre el eje Z (hacia atrás para rotación en sentido horario)
-            discImage.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
-        }
 
         // 2. CAMBIO AUTOMÁTICO DE CANCIÓN
         if (!audioSource.isPlaying && !isPlayerPausedManual)
@@ -137,12 +119,6 @@ public class MusicPlayer : MonoBehaviour
                 songTitleText.text = currentSong.songTitle;
             else if (currentSong.audioClip != null)
                 songTitleText.text = currentSong.audioClip.name;
-        }
-
-        // Asignar imagen del disco
-        if (discImage != null && currentSong.albumArt != null)
-        {
-            discImage.sprite = currentSong.albumArt;
         }
 
         // Reiniciar la rotación del disco a 0 al cambiar de canción
