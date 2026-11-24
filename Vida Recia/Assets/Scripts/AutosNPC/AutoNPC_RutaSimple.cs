@@ -40,7 +40,7 @@ public class AutoNPC_RutaSimple : MonoBehaviour
     private bool rutaValida;
     private int layerCalle;
 
-    // No asigna memoria por cada Raycast en FixedUpdate.
+    // No asigna memoria a cada Raycast
     private readonly RaycastHit[] impactos = new RaycastHit[16];
 
     private void Awake()
@@ -126,7 +126,7 @@ public class AutoNPC_RutaSimple : MonoBehaviour
 
         rb.MovePosition(siguiente);
 
-        // Gira segun el avance horizontal real, sin incluir el bote vertical.
+        // Gira segun el avance, sin incluir el bote
         Vector3 desplazamiento = siguiente - antes;
         desplazamiento.y = 0f;
         float grados = desplazamiento.magnitude / radioLlanta * Mathf.Rad2Deg;
@@ -143,7 +143,7 @@ public class AutoNPC_RutaSimple : MonoBehaviour
 
     private void AjustarAltura(ref Vector3 siguiente, Quaternion orientacion)
     {
-        // Se comprueba la superficie bajo el centro y ambos ejes del coche.
+        // Se comprueba la superficie
         Vector3 adelante = orientacion * Vector3.forward * distanciaEjes;
         float mayorAltura = float.NegativeInfinity;
         bool encontro = false;
@@ -153,7 +153,8 @@ public class AutoNPC_RutaSimple : MonoBehaviour
         Evaluar(siguiente + adelante, ref mayorAltura, ref encontro, ref hayBache);
         Evaluar(siguiente - adelante, ref mayorAltura, ref encontro, ref hayBache);
 
-        if (!encontro) return; // Si no se detecta piso, no cambiar bruscamente de altura.
+        // Si no se detecta piso, no cambia
+        if (!encontro) return;
 
         if (!offsetCalculado)
         {
@@ -208,7 +209,7 @@ public class AutoNPC_RutaSimple : MonoBehaviour
 
     private static bool TieneTagBache(Transform objeto)
     {
-        // Permite que el tag este en el objeto del collider o en su padre.
+        // Permite que el tag este en el objeto o en el padre
         for (Transform actual = objeto; actual != null; actual = actual.parent)
         {
             if (actual.CompareTag("Bache")) return true;
