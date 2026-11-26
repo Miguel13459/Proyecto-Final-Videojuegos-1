@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,6 +29,7 @@ public class ManejadorPartida : MonoBehaviour
     Color color;
 
     public GameObject panelPausa;
+    public GameObject panelTutorial;
     private bool isPausado = false;
     public EventSystem eventSystem;
     
@@ -44,15 +46,61 @@ public class ManejadorPartida : MonoBehaviour
 
         pizzasEntregadas = 0;
         pizzasPerdidas = 0;
-        
+
+        musicPlayerSript.audioSource.Play();
+        jugadorScript.sonidoMoto.Play();
+        StartCoroutine(MostrarTutorial());
+    }
+
+    IEnumerator MostrarTutorial()
+    {
+        yield return new WaitForSeconds(2.1f);
+        MostrarPantallaTutorial();
+    }
+
+    private void MostrarPantallaTutorial()
+    {
+        panelTutorial.SetActive(true);
+        Time.timeScale = 0f;
+        camaraOrbital.enabled = false;
+        jugadorScript.sonidoMoto.Pause();
+        if (globalVolume.profile.TryGet(out DepthOfField depthOfField))
+        {
+            depthOfField.focalLength.value = 182;
+            depthOfField.aperture.value = 0f;
+        }
+        isPausado = true;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void QuitarPantallaTutorial()
+    {
+        panelTutorial.SetActive(false);
+        Time.timeScale = 1f;
+        jugadorScript.sonidoMoto.Play();
+        camaraOrbital.enabled = true;
+        if (globalVolume.profile.TryGet(out DepthOfField depthOfField))
+        {
+            depthOfField.focalLength.value = 50;
+            depthOfField.aperture.value = 5.6f;
+        }
+        isPausado = false;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
-        
-        if (jugadorScript.siguiente) CambiarSiguienteCancion();
-        if (jugadorScript.anterior) CambiarAnteriorCancion();
-        if (jugadorScript.pausarMusica) PausarCancion();
+
+        if (!isPausado)
+        {
+            if (jugadorScript.siguiente) CambiarSiguienteCancion();
+            if (jugadorScript.anterior) CambiarAnteriorCancion();
+            if (jugadorScript.pausarMusica) PausarCancion();
+        }
 
         if (duracionPartida > 0)
         {
@@ -102,6 +150,7 @@ public class ManejadorPartida : MonoBehaviour
             PlayerPrefs.SetInt("mayorPizzasEntregadas", mayorPizzasEntregadas);
             PlayerPrefs.Save();
         }
+        musicPlayerSript.audioSource.Stop();
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -113,13 +162,13 @@ public class ManejadorPartida : MonoBehaviour
         panelPausa.SetActive(true);
         Time.timeScale = 0f;
         jugadorScript.sonidoMoto.Pause();
+        musicPlayerSript.audioSource.Pause();
         camaraOrbital.enabled = false;
         if (globalVolume.profile.TryGet(out DepthOfField depthOfField))
         {
             depthOfField.focalLength.value = 182;
             depthOfField.aperture.value = 0f;
         }
-        ;
         isPausado = true;
 
         Cursor.visible = true;
@@ -131,6 +180,7 @@ public class ManejadorPartida : MonoBehaviour
         panelPausa.SetActive(false);
         Time.timeScale = 1f;
         jugadorScript.sonidoMoto.Play();
+        musicPlayerSript.audioSource.Play();
         camaraOrbital.enabled = true;
         if (globalVolume.profile.TryGet(out DepthOfField depthOfField))
         {
@@ -158,6 +208,7 @@ public class ManejadorPartida : MonoBehaviour
     {
         Time.timeScale = 1f;
         jugadorScript.sonidoMoto.Play();
+        musicPlayerSript.audioSource.Stop();
         camaraOrbital.enabled = true;
         isPausado = false;
         Cursor.visible = true;
